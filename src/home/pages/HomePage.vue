@@ -1,45 +1,32 @@
 <script setup>
+import NavBar from '../../shared/components/NavBar.vue';
+
+
+const links = [
+    {name: "home", title:"Home"},
+    {name:"login", title: "Sign In"}, 
+    {name:"register", title: "Sign Up"}
+ ]
 </script>
 
 
 <template>
-   <h1>Home</h1>
-   <div class="wrapper">
-      <!-- <HelloWorld msg="You did it!" /> -->
+<header>
+    <NavBar :links="links"/>    
+</header>
+   
+   <div class="container">
+    <h1>Home</h1>
 
-      <nav>
-        <RouterLink :to="{name: 'home'}">Home</RouterLink>
-        <RouterLink :to="{name: 'login'}">Sign In</RouterLink>
-        <RouterLink :to="{name: 'register'}">Sign Up</RouterLink>
-      </nav>
+    
     </div>
 </template>
 
 
 <style scoped>
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
+ .container{
+    background-color: aqua;
+    min-height: 100vh;
+ }
 </style>

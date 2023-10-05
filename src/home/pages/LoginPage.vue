@@ -1,15 +1,25 @@
 <script setup>
+
+
+
+
+
 </script>
 
 
 <template>
-   <h1>Login</h1>
-   <nav>
-        <RouterLink :to="{name: 'home'}">Home</RouterLink>
-      
-      </nav>
+ <div class="wrapper">
+    <h1>Login</h1>
+ </div>
+  
+  
 </template>
 
 
 <style scoped>
+.wrapper{
+    height: 40vh;
+    background-color: aquamarine;
+    width: 200px;
+}
 </style>
