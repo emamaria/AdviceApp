@@ -2,7 +2,7 @@
 
 
 const props = defineProps({
- links: []
+ links: Array
 })
 
 
