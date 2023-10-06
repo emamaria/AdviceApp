@@ -25,20 +25,20 @@ nav {
   width: 100%;
  display: flex;
  justify-content:flex-end ;
- background-color: gray;
+ background-color: #6e5064;
 }
 
 nav a.router-link-exact-active {
-  color: pink;
+  color: white;
 }
 
 nav a.router-link-exact-active:hover {
-  color: pink;
+  color: white;
 }
 
 nav a {
   margin: 10px;
- 
+  color: #d7cebb;
   text-decoration: none;
 }
 

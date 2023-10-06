@@ -13,15 +13,14 @@ const links = [
 
 
 <template>
-   <div class="container">
-      <header>
-        <NavBar :links="links"/>    
-    </header>
-    <main>
-  
-   <RouterView/>
-</main>
-      </div>
+<div class="container">
+ <header>
+   <NavBar :links="links"/>    
+ </header>
+ <main>
+  <RouterView/>
+ </main>
+</div>
    
 </template>
 
@@ -29,9 +28,8 @@ const links = [
 <style scoped>
 
 .container{
-   background-color: orangered;
+   background-color: #6e5064;
    min-height: 100vh;
-
  
 }
 
@@ -40,5 +38,6 @@ main{
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   min-height: 100vh;
 }
 </style>

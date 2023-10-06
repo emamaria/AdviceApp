@@ -26,7 +26,7 @@ const links = [
 <style scoped>
 
  .container{
-    background-color: aqua;
+    background-color: #6e5064;
     min-height: 100vh;
  }
 </style>
