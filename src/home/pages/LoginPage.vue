@@ -1,19 +1,26 @@
 
 <script setup>
+import {ref} from 'vue'
 
+const form =  ref({
+    email: "",
+    password: ""
+})
 
-
+const submitLoginData = () => {
+    console.log(form.value)
+} 
 
 </script>
 
 
 <template>
 
-    <form>
+    <form @submit.prevent="submitLoginData">
        <h3>Sign In</h3>
-       <input type="email" v-model="email" placeholder="email">
+       <input type="email" v-model="form.email" placeholder="email">
         
-       <input type="password" v-model="password" placeholder="password">
+       <input type="password" v-model="form.password" placeholder="password">
        <input id="button" type="submit" value="Login">
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>
