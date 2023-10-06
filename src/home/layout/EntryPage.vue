@@ -6,8 +6,7 @@ import NavBar from '../../shared/components/NavBar.vue';
 
 const links = [
     {name: "home", title:"Home"},
-    {name:"login", title: "Sign In"}, 
-    {name:"register", title: "Sign Up"}
+   
  ]
 </script>
 

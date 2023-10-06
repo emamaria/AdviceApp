@@ -26,6 +26,7 @@ nav {
  display: flex;
  justify-content:flex-end ;
  background-color: #6e5064;
+ padding-right: 30px;
 }
 
 nav a.router-link-exact-active {
@@ -37,7 +38,7 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  margin: 10px;
+  margin: 20px;
   color: #d7cebb;
   text-decoration: none;
 }
