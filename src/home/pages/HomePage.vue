@@ -1,5 +1,7 @@
 <script setup>
-import NavBar from '../../shared/components/NavBar.vue';
+import NavBar from '../shared/components/NavBar.vue';
+
+
 
 
 const links = [
