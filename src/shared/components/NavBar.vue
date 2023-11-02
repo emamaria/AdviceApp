@@ -30,17 +30,19 @@ nav {
 }
 
 nav a.router-link-exact-active {
-  color: white;
+  color: #d7cebb;
 }
 
-nav a.router-link-exact-active:hover {
-  color: white;
-}
 
 nav a {
-  margin: 20px;
-  color: #d7cebb;
+  margin: 25px;
+  color: white;
   text-decoration: none;
+  font-size: 1.3rem;
+}
+
+nav a:hover{
+  color:#d7cebb
 }
 
 nav a:first-of-type {
