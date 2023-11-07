@@ -40,7 +40,8 @@ const router = createRouter({
         {
           path: `/users/advice`,
           name: 'users-advice',
-          component: () => import('../users/pages/AdvicePage.vue') 
+          component: () => import('../users/pages/AdvicePage.vue'),
+        
         },
         {
           path: `/users/advice/:id`,

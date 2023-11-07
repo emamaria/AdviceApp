@@ -1,7 +1,18 @@
 
 <script setup>
 
-import { RouterView } from 'vue-router';
+import { useRoute } from 'vue-router';
+import { computed } from 'vue';
+
+
+
+const route = useRoute()
+const currentPath = computed(() => route.name)
+console.log(currentPath.value)
+
+
+
+
 
 </script>
 
@@ -10,7 +21,7 @@ import { RouterView } from 'vue-router';
   <div class="container">
    <header>
    
-      <input type="text"  placeholder="find advice type by word">
+      <input v-if="currentPath === 'users-advice'" type="text"  placeholder="find advice type by word">
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:'123'}}">User</RouterLink>
