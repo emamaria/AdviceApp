@@ -10,10 +10,6 @@ const route = useRoute()
 const currentPath = computed(() => route.name)
 console.log(currentPath.value)
 
-
-
-
-
 </script>
 
 
