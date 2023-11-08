@@ -10,12 +10,16 @@ let datas = [
 
 let data = ref(datas)
 
+const props = defineProps({
+   searchAdvise: String
+})
+
 
 const addLike = (id) => {
     return data.value.find(data => data.id === id).liked += 1
 //   console.log(id, data.value)
 }
-let userData = computed(() => data.value)
+ let userData = computed(() => data.value.filter( data => data.text.toLowerCase().includes(props.searchAdvise.toLowerCase()) ))
 
 </script>
 
