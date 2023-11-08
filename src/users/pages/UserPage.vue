@@ -2,7 +2,7 @@
 <script setup>
 import { ref } from 'vue';
 
-let userData =  {id: "1", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."}
+let userData =  {id: "1", email: "carmen@mail.com", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."}
 const user = ref(userData)
 
 const createAdvice = () => {
