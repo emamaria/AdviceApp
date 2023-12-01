@@ -19,7 +19,7 @@ const links = [
    
    <div class="container">
      <main class="app_explanation_container">
-       <h1>Give one advice about anything you want!</h1>
+       <h2>Give one advice about anything you want!</h2>
        <p>For example: Better have Ceylon Cinnamon than Cassia, is less toxic for your liver, anyway don`t abuse any of it.</p>
         
     </main>
@@ -32,7 +32,7 @@ const links = [
 <style scoped>
 
 
- h1{
+ h2{
     color: white;
     font-size: 7rem;
     
