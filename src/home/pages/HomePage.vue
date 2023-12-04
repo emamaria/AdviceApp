@@ -53,6 +53,6 @@ const links = [
 
  .app_explanation_container{
     width: 90%;
-    padding: 10rem;
+    padding: 6rem;
  }
 </style>
