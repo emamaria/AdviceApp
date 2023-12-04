@@ -1,7 +1,11 @@
 <script setup>
 
+// import useUserRegister from '../composables/useUserRegister'
 
-import {ref} from 'vue'
+
+// const {data, isLoading} = useUserRegister()
+
+import { ref, computed } from 'vue';
 
 const form =  ref({
     email: "",
@@ -10,7 +14,27 @@ const form =  ref({
     password2: ""
 })
 
+const passwordValidationMessage = ref("The password must be the same")
+
+const passwordInValid = computed( () => {
+    if(form.value.password1 !== form.value.password2 ){
+        if(form.value.password2.length !== 0 && form.value.password1.length !== 0){
+             return true
+        }
+        
+    }
+
+    return false
+})
+
 const submitRegisterData = () => {
+
+    if(form.value.password1 !== form.value.password2){
+       return
+    }
+
+   
+
     console.log(form.value)
 } 
 
@@ -26,6 +50,7 @@ const submitRegisterData = () => {
        <input type="email" v-model="form.email" placeholder="email">
         
        <input type="password" v-model="form.password1" placeholder="password">
+       <small v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="password">
        <input id="button" type="submit" value="Register">
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>

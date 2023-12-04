@@ -2,7 +2,8 @@ import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
-  const userData = ref({id: "1", email: "carmen@mail.com", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."})
+  
+  const userData = ref({userId: "1", email: "carmen@mail.com", name: "carmen", auth: false})
   const showUserData = computed(() => userData.value)
 
   function editUserData() {
