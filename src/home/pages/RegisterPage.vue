@@ -27,9 +27,26 @@ const passwordInValid = computed( () => {
     return false
 })
 
-const fieldsNotEmpty = ref({
-    invalid: false,
-    warnMesage: "You have  to fill all the fields" 
+const fieldsNotEmptyMessage = ref( "You have  to fill all the fields" )
+
+const fieldsNotEmpty = computed(() => {
+    if(form.value.password1.length === 0 ||
+      form.value.password2.length === 0 ||
+       form.value.name.length === 0   || 
+       form.value.email.length === 0 
+    ){
+        if(form.value.password1.length > 0 ||
+      form.value.password2.length > 0 ||
+       form.value.name.length > 0   || 
+       form.value.email.length > 0 
+    ){
+        return true
+    }
+
+  }
+
+    return false
+
 })
 
 const submitRegisterData = () => {
@@ -39,9 +56,7 @@ const submitRegisterData = () => {
        form.value.name.length === 0   || 
        form.value.email.length === 0 
     ){
-        fieldsNotEmpty.value.invalid = true
-
-        return
+       return
     }
 
     if(form.value.password1 !== form.value.password2){
@@ -69,7 +84,7 @@ const submitRegisterData = () => {
        <input type="password" v-model="form.password1" placeholder="password">
        <small v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="password">
-       <small v-if="fieldsNotEmpty.invalid">{{fieldsNotEmpty.warnMesage}}</small>
+       <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
        <input id="button" type="submit" value="Register">
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
     </form>
