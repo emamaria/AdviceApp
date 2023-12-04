@@ -1,11 +1,9 @@
 <script setup>
 
-// import useUserRegister from '../composables/useUserRegister'
-
-
-// const {data, isLoading} = useUserRegister()
-
 import { ref, computed } from 'vue';
+import useUserAuth from '../composables/useUserAuth'
+
+const {register} = useUserAuth()
 
 const form =  ref({
     email: "",
@@ -13,6 +11,9 @@ const form =  ref({
     password1: "",
     password2: ""
 })
+
+
+
 
 const passwordValidationMessage = ref("The password must be the same")
 
@@ -63,11 +64,15 @@ const submitRegisterData = () => {
        return
     }
 
-  
+   
 
     console.log(form.value)
 
-    fieldsNotEmpty.value.invalid = false
+
+    register(form.value.name, form.value.email, form.value.password1)
+
+  
+    
 } 
 
 </script>
@@ -92,6 +97,11 @@ const submitRegisterData = () => {
 
 
 <style scoped>
+
+small{
+  color: red
+}
+
 h3{
     color: #6e5064;  
 }

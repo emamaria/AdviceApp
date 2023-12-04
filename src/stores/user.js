@@ -3,7 +3,8 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   
-  const userData = ref({userId: "1", email: "carmen@mail.com", name: "carmen", auth: false})
+  const userData = ref({userId: "1", email: "carmen@mail.com", name: "carmen"})
+  const authStatus = ref("loading") //true //false
   const showUserData = computed(() => userData.value)
 
   function editUserData() {
@@ -15,5 +16,5 @@ export const useUserStore = defineStore('user', () => {
 
   }
 
-  return { showUserData, editUserData, userData }
+  return { showUserData, editUserData, userData, authStatus}
 })
