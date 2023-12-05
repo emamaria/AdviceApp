@@ -1,14 +1,41 @@
 
 <script setup>
-import {ref} from 'vue'
+
+import { ref, computed } from 'vue';
+import useUserAuth from '../composables/useUserAuth'
+
+const {login, authStatus } = useUserAuth()
 
 const form =  ref({
     email: "",
     password: ""
 })
 
+const fieldsNotEmptyMessage = ref( "Please complete all the fields" )
+
+const fieldsNotEmpty = computed(() => {
+    if(form.value.password.length === 0 || form.value.email.length === 0 ){
+    if(form.value.password.length > 0 ||form.value.email.length > 0 ){
+        return true
+    }
+  }
+    return false
+})
+
+
 const submitLoginData = () => {
+
+    if(form.value.password.length === 0 || form.value.email.length === 0 ){
+       return
+    }
     console.log(form.value)
+
+    login(form.value.email, form.value.password)
+
+    form.value = {
+    email: "",
+    password: ""
+     }
 } 
 
 </script>
@@ -18,10 +45,10 @@ const submitLoginData = () => {
 
     <form @submit.prevent="submitLoginData">
        <h3>Sign In</h3>
-       <input type="email" v-model="form.email" placeholder="email">
-        
+       <input type="email" v-model="form.email" placeholder="email">  
        <input type="password" v-model="form.password" placeholder="password">
-       <input id="button" type="submit" value="Login">
+       <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
+       <input id="button" type="submit" value="Login"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>
 
@@ -31,6 +58,11 @@ const submitLoginData = () => {
 
 
 <style scoped>
+
+small{
+  color: #6e5064;
+}
+
 
 h3{
     color: #6e5064;  

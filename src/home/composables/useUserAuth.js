@@ -30,12 +30,12 @@ const useUserAuth = () => {
             
         } catch (error) {
 
-            let errorMessage;
+             let errorMessage;
              console.log(error)
 
              authStatus.value = "no-auth"
 
-             if(error.response.data.ok === false){
+             if(!error.response.data.ok === false){
                 errorMessage = error.response.data
                 console.log(errorMessage)
                 return  errorMessage
@@ -43,10 +43,45 @@ const useUserAuth = () => {
         }
     }
 
+
+    const login = async(email, password) => {
+       
+        try {
+
+        authStatus.value = "loading"
+
+        const {data} = await userApi.post('/auth/login', {email, password})
+
+        console.log(data)
+
+        userData.value = {...data.userDB}
+
+        localStorage.setItem('token', data.token)
+
+        localStorage.setItem('user', JSON.stringify({...data.userDB}))
+
+        authStatus.value = "ok-auth"
+            
+        } catch (error) {
+            let errorMessage;
+            console.log(error)
+
+            authStatus.value = "no-auth"
+
+            if(error.response.data.ok === false){
+               errorMessage = error.response.data
+               console.log(errorMessage)
+               return  errorMessage
+            }
+        }
+        
+    }
+
     
 return{
    register,
-   authStatus
+   authStatus,
+   login
 }
 }
 
