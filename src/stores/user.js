@@ -3,8 +3,8 @@ import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('user', () => {
   
-  const userData = ref({userId: "1", email: "carmen@mail.com", name: "carmen"})
-  const authStatus = ref("loading") //true //false
+  const userData = ref({})
+  const authStatus = ref('no-auth') //ok-auth //no-auth//loading
   const showUserData = computed(() => userData.value)
 
   function editUserData() {

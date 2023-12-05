@@ -3,7 +3,7 @@
 import { ref, computed } from 'vue';
 import useUserAuth from '../composables/useUserAuth'
 
-const {register} = useUserAuth()
+const {register, authStatus } = useUserAuth()
 
 const form =  ref({
     email: "",
@@ -11,7 +11,6 @@ const form =  ref({
     password1: "",
     password2: ""
 })
-
 
 
 
@@ -28,7 +27,7 @@ const passwordInValid = computed( () => {
     return false
 })
 
-const fieldsNotEmptyMessage = ref( "You have  to fill all the fields" )
+const fieldsNotEmptyMessage = ref( "Please complete all the fields" )
 
 const fieldsNotEmpty = computed(() => {
     if(form.value.password1.length === 0 ||
@@ -52,6 +51,9 @@ const fieldsNotEmpty = computed(() => {
 
 const submitRegisterData = () => {
 
+    
+
+
     if(form.value.password1.length === 0 ||
       form.value.password2.length === 0 ||
        form.value.name.length === 0   || 
@@ -71,7 +73,12 @@ const submitRegisterData = () => {
 
     register(form.value.name, form.value.email, form.value.password1)
 
-  
+    form.value = {
+    email: "",
+    name: "",
+    password1: "",
+    password2: ""
+}
     
 } 
 
@@ -90,7 +97,7 @@ const submitRegisterData = () => {
        <small v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
-       <input id="button" type="submit" value="Register">
+       <input id="button" type="submit" value="Register"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
     </form>
 </template>
@@ -99,7 +106,7 @@ const submitRegisterData = () => {
 <style scoped>
 
 small{
-  color: red
+  color: #6e5064;
 }
 
 h3{
