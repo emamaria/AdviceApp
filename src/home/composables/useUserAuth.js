@@ -23,6 +23,8 @@ const useUserAuth = () => {
             console.log(userData.value)
 
             localStorage.setItem('token', data.token)
+
+            localStorage.setItem('user', JSON.stringify({...data.user}))
          
              authStatus.value = "ok-auth"
             
