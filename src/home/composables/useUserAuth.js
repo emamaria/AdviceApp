@@ -35,7 +35,7 @@ const useUserAuth = () => {
 
              authStatus.value = "no-auth"
 
-             if(!error.response.data.ok === false){
+             if(error?.response?.data.ok === false){
                 errorMessage = error.response.data
                 console.log(errorMessage)
                 return  errorMessage
@@ -77,11 +77,40 @@ const useUserAuth = () => {
         
     }
 
+    const validateToken = async() => {
+
+        const options = {
+            headers: {'token':localStorage.getItem('token')}
+        }
+
+        try {
+            const {data} = await userApi.get('/auth/renew', options)
+            localStorage.setItem('token', data.token)
+            userData.value.name = data.name
+            userData.value.email = data.email
+            userData.value.uid = data.uid
+            localStorage.setItem('user', JSON.stringify({...userData.value}))
+            // authStatus.value = 'ok-auth'
+            
+            console.log("token",data)
+        } catch (error) {
+            console.log(error)
+           
+                
+                localStorage.clear()
+                userData.value = {}
+                authStatus.value = "no-auth"
+               
+            
+        }
+    }
+
     
 return{
    register,
    authStatus,
-   login
+   login,
+   validateToken
 }
 }
 
