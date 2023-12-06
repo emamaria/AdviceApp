@@ -1,5 +1,29 @@
 <script setup>
+import useUserAuth from '../src/home/composables/useUserAuth'
+const {validateToken } = useUserAuth()
+import { useRouter } from 'vue-router';
 
+
+
+
+const router = useRouter()
+
+
+const changeRoute = () => {
+   router.push({path: '/'})
+}
+
+const checkToken = async() => {
+ let result = await validateToken()
+
+
+if(result === 'error'){
+  changeRoute()
+}
+
+}
+
+checkToken()
 
 </script>
 

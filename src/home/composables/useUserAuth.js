@@ -125,7 +125,7 @@ const useUserAuth = () => {
                 localStorage.clear()
                 userData.value = {}
                 authStatus.value = "no-auth"
-               
+                return "error"
             
         }
     }
