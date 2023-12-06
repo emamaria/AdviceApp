@@ -1,6 +1,7 @@
 import { storeToRefs } from 'pinia'
 import userApi from '../../api/api'
 import { useUserStore } from '../../stores/user'
+import { computed, ref } from 'vue'
 
 //creo composable que retorna las funciones de login register y renew
 
@@ -8,9 +9,14 @@ const useUserAuth = () => {
    
     const store = useUserStore()
 
+   
+
     const { userData, authStatus } = storeToRefs(store)
     
     const register = async(name, email, password) => {
+
+       
+
         try {
 
             authStatus.value = "loading"
@@ -30,14 +36,22 @@ const useUserAuth = () => {
             
         } catch (error) {
 
-             let errorMessage;
+             let errorMessage = ref('hola')
              console.log(error)
 
              authStatus.value = "no-auth"
+             userData.value = {}
+             localStorage.clear()
+
+             if(error?.response?.data?.errors?.password){
+                 
+                errorMessage.value = error?.response?.data?.errors?.password?.msg
+                return errorMessage.value
+             }
 
              if(error?.response?.data.ok === false){
-                errorMessage = error.response.data
-                console.log(errorMessage)
+                errorMessage.value = error.response.data
+              
                 return  errorMessage
              }
         }

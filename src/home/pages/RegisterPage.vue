@@ -14,6 +14,7 @@ const form =  ref({
 
 let color = ref('#6e5064')
 
+let errorMessage = ref('')
 const setColor = (colour) => {
     color.value = colour
    
@@ -54,10 +55,9 @@ const fieldsNotEmpty = computed(() => {
 
 })
 
-const submitRegisterData = () => {
+const submitRegisterData = async() => {
 
     
-
 
     if(form.value.password1.length === 0 ||
       form.value.password2.length === 0 ||
@@ -76,7 +76,11 @@ const submitRegisterData = () => {
     console.log(form.value)
 
 
-    register(form.value.name, form.value.email, form.value.password1)
+    errorMessage.value = await register(form.value.name, form.value.email, form.value.password1)
+
+    setTimeout(()=>{
+        errorMessage.value = ""
+    }, 30000) 
 
     form.value = {
     email: "",
@@ -99,12 +103,13 @@ const submitRegisterData = () => {
        <input type="email" v-model="form.email" placeholder="email">
         
        <input type="password" v-model="form.password1" placeholder="password">
-       <small v-if="passwordInValid">{{passwordValidationMessage}}</small>
+       <small class="errorMessage" v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
+       <small v-if="errorMessage">{{errorMessage}}</small>
        <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
-    </form>
+       </form>
 </template>
 
 
