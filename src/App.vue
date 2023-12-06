@@ -10,7 +10,7 @@ const router = useRouter()
 
 
 const changeRoute = () => {
-   router.push({path: '/'})
+   router.push({path: '/entry'})
 }
 
 const checkToken = async() => {

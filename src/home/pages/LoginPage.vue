@@ -3,13 +3,22 @@
 
 import { ref, computed } from 'vue';
 import useUserAuth from '../composables/useUserAuth'
-
+import { useRouter } from 'vue-router';
 const {login, authStatus } = useUserAuth()
+
+
+const router = useRouter()
+
+const changePage = () => {
+    router.push({path: '/users'})
+}
+let errorMessage = ref('')
 
 const form =  ref({
     email: "",
     password: ""
 })
+
 
 let color = ref('#6e5064')
 
@@ -31,19 +40,33 @@ const fieldsNotEmpty = computed(() => {
 })
 
 
-const submitLoginData = () => {
+const submitLoginData = async() => {
 
     if(form.value.password.length === 0 || form.value.email.length === 0 ){
        return
     }
     console.log(form.value)
 
-    login(form.value.email, form.value.password)
+    errorMessage.value =  await login(form.value.email, form.value.password)
 
+    setTimeout(()=>{
+    errorMessage.value = ""
+
+    }, 10000) 
+
+    setTimeout(()=>{
     form.value = {
     email: "",
     password: ""
      }
+    }, 3000)
+   
+    if(authStatus.value === 'ok-auth'){
+        changePage()
+    }
+  
+
+  
 } 
 
 </script>
@@ -56,6 +79,7 @@ const submitLoginData = () => {
        <input type="email" v-model="form.email" placeholder="email">  
        <input type="password" v-model="form.password" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
+       <small v-if="errorMessage">{{errorMessage}}</small>
        <input id="button"  @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Login"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>

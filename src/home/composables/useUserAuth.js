@@ -60,11 +60,7 @@ const useUserAuth = () => {
                 return errorMessage.value
              }
       
-            //  if(error?.response?.data.ok === false){
-            //     errorMessage.value = error.response.data
-              
-            //     return  errorMessage
-            //  }
+            
         }
     }
 
@@ -88,16 +84,27 @@ const useUserAuth = () => {
         authStatus.value = "ok-auth"
             
         } catch (error) {
-            let errorMessage;
+            let errorMessage = ref('')
             console.log(error)
 
             authStatus.value = "no-auth"
+            userData.value = {}
+            localStorage.clear()
 
-            if(error.response.data.ok === false){
-               errorMessage = error.response.data
-               console.log(errorMessage)
-               return  errorMessage
+            if(error?.response?.data?.errors?.password){
+                
+               errorMessage.value = error?.response?.data?.errors?.password?.msg
+               return errorMessage.value
             }
+
+            if(error?.response?.data?.ok === false){
+               
+                errorMessage.value = error?.response?.data?.msg
+                return errorMessage.value
+             }
+             
+            
+           
         }
         
     }
