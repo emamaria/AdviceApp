@@ -11,6 +11,14 @@ const form =  ref({
     password: ""
 })
 
+let color = ref('#6e5064')
+
+const setColor = (colour) => {
+    color.value = colour
+   
+}
+
+
 const fieldsNotEmptyMessage = ref( "Please complete all the fields" )
 
 const fieldsNotEmpty = computed(() => {
@@ -48,7 +56,7 @@ const submitLoginData = () => {
        <input type="email" v-model="form.email" placeholder="email">  
        <input type="password" v-model="form.password" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
-       <input id="button" type="submit" value="Login"><span v-if="authStatus === 'loading'">...loading</span>
+       <input id="button"  @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Login"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>
 

@@ -12,7 +12,12 @@ const form =  ref({
     password2: ""
 })
 
+let color = ref('#6e5064')
 
+const setColor = (colour) => {
+    color.value = colour
+   
+}
 
 const passwordValidationMessage = ref("The password must be the same")
 
@@ -97,13 +102,14 @@ const submitRegisterData = () => {
        <small v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
-       <input id="button" type="submit" value="Register"><span v-if="authStatus === 'loading'">...loading</span>
+       <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register"><span v-if="authStatus === 'loading'">...loading</span>
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
     </form>
 </template>
 
 
 <style scoped>
+
 
 small{
   color: #6e5064;
