@@ -78,9 +78,9 @@ const submitRegisterData = async() => {
 
     errorMessage.value = await register(form.value.name, form.value.email, form.value.password1)
 
-    setTimeout(()=>{
-        errorMessage.value = ""
-    }, 30000) 
+    // setTimeout(()=>{
+    //     errorMessage.value = ""
+    // }, 30000) 
 
     form.value = {
     email: "",
