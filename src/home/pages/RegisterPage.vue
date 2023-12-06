@@ -2,8 +2,15 @@
 
 import { ref, computed } from 'vue';
 import useUserAuth from '../composables/useUserAuth'
-
+import { useRouter } from 'vue-router';
 const {register, authStatus } = useUserAuth()
+
+
+const router = useRouter()
+
+const changePage = () => {
+    router.push({path: '/users'})
+}
 
 const form =  ref({
     email: "",
@@ -78,17 +85,24 @@ const submitRegisterData = async() => {
 
     errorMessage.value = await register(form.value.name, form.value.email, form.value.password1)
 
-    // setTimeout(()=>{
-    //     errorMessage.value = ""
-    // }, 30000) 
+    setTimeout(()=>{
+    errorMessage.value = ""
 
+    }, 20000) 
+
+    setTimeout(()=>{
     form.value = {
     email: "",
     name: "",
     password1: "",
     password2: ""
 }
-    
+    }, 3000)
+   
+    if(authStatus.value === 'ok-auth'){
+        changePage()
+    }
+  
 } 
 
 </script>

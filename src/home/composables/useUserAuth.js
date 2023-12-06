@@ -3,6 +3,8 @@ import userApi from '../../api/api'
 import { useUserStore } from '../../stores/user'
 import { ref } from 'vue'
 
+
+
 //creo composable que retorna las funciones de login register y renew
 
 const useUserAuth = () => {
@@ -15,9 +17,10 @@ const useUserAuth = () => {
     
     const register = async(name, email, password) => {
 
-       
-
+        
         try {
+
+          
 
             authStatus.value = "loading"
             const {data} = await userApi.post('/users', {name, email, password})
@@ -33,10 +36,12 @@ const useUserAuth = () => {
             localStorage.setItem('user', JSON.stringify({...data.user}))
          
              authStatus.value = "ok-auth"
+
+            
             
         } catch (error) {
 
-             let errorMessage = ref('hola')
+             let errorMessage = ref('')
              console.log(error)
 
              authStatus.value = "no-auth"
