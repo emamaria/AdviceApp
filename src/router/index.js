@@ -1,5 +1,15 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '../stores/user'
+import { storeToRefs } from 'pinia'
 
+const authGuard = (to, from, next) => {
+
+  const store = useUserStore()
+  const { authStatus } = storeToRefs(store)
+
+  if(authStatus.value === 'ok-auth')next()
+  else next({name: 'entry'})
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +44,7 @@ const router = createRouter({
     {
       path: '/users',
       name: 'users',
+      beforeEnter: [authGuard],
       redirect: `/users/advice`,
       component: () => import('../users/layout/UsersPage.vue'),
       children: [
@@ -62,3 +73,6 @@ const router = createRouter({
 })
 
 export default router
+
+
+
