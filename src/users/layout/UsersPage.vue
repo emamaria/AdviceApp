@@ -3,8 +3,11 @@
 
 import { useRoute } from 'vue-router';
 import { computed, ref, watch } from 'vue';
+import useUserAuth from '../../home/composables/useUserAuth';
 
 
+
+ const {userData} = useUserAuth()
 
 const route = useRoute()
 const currentPath = computed(() => route.name)
@@ -28,7 +31,7 @@ watch(searchAdvise, () => {
       <input v-model="searchAdvise" v-if="currentPath === 'users-advice'" type="text"  placeholder="find advice type by word">
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
-      <RouterLink :to="{name: 'user', params: {id:'123'}}">User</RouterLink>
+      <RouterLink :to="{name: 'user', params: {id:userData.uid}}">User</RouterLink>
       <RouterLink :to="{name: 'entry'}">Logout</RouterLink>
       </nav>
    </header>

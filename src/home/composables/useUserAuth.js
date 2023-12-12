@@ -142,7 +142,8 @@ return{
    register,
    authStatus,
    login,
-   validateToken
+   validateToken,
+   userData
 }
 }
 
