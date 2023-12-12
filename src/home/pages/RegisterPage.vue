@@ -88,7 +88,7 @@ const submitRegisterData = async() => {
     setTimeout(()=>{
     errorMessage.value = ""
 
-    }, 20000) 
+    }, 10000) 
 
     setTimeout(()=>{
     form.value = {

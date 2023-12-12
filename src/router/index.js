@@ -8,7 +8,7 @@ const authGuard = (to, from, next) => {
   const { authStatus } = storeToRefs(store)
 
   if(authStatus.value === 'ok-auth')next()
-  else next({name: 'entry'})
+  else next({name: 'home'})
 }
 
 const router = createRouter({

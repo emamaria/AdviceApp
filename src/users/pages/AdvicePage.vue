@@ -1,14 +1,14 @@
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed} from 'vue';
+import useUsersAdvice from '../composables/useUsersAdvice.js' 
 
-let datas = [
-   {id: "1", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."},
-   {id: "2", name: "mamen", img: "mamen", liked: 2, text:"Sit magna culpa ut aliqua nulla consequat cupidatat."},
-   {id: "3", name: "sara", img: "sara", liked: 3, text: "Aliqua id Lorem est qui veniam proident non eiusmod commodo minim veniam irure adipisicing."}
-]
 
-let data = ref(datas)
+const {allAdvice, isLoading} = useUsersAdvice()
+
+
+
+console.log(allAdvice.value, '1')
 
 const props = defineProps({
    searchAdvise: String
@@ -16,23 +16,26 @@ const props = defineProps({
 
 
 const addLike = (id) => {
-    return data.value.find(data => data.id === id).liked += 1
-//   console.log(id, data.value)
-}
- let userData = computed(() => data.value.filter( data => data.text.toLowerCase().includes(props.searchAdvise.toLowerCase()) ))
+    return allAdvice.value.find(data => data.id === id).liked += 1
 
+}
+
+ let adviceData = computed(() => allAdvice.value.filter( data => data.advice.toLowerCase().includes(props.searchAdvise.toLowerCase()) ))
+
+ 
 </script>
 
 
 <template>
-   <div  class="main_container">
-      <article class="user_advice_container" v-for="user of userData" :key="user.id">
+   <div v-if="isLoading">Loading</div>
+   <div v-else class="main_container">
+      <article class="user_advice_container" v-for="advice of adviceData" :key="advice._id">
          <header class="user_advice_header">
-            <h3>{{ user.name }}</h3><img :src="user.img" :alt="user.img">
+            <h3>{{ advice.userId.name }}</h3><img :src="advice.img" :alt="advice.img">
          </header>
          <main class="user_advice_main">
-         <p>{{ user.text }}</p>
-         <p @click="addLike(user.id)">{{ user.liked }}</p>
+         <p>{{ advice.advice }}</p>
+         <p @click="addLike(advice.id)">{{ advice.like }}</p>
          </main>
         
       </article>

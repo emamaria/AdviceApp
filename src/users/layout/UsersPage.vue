@@ -34,7 +34,7 @@ watch(searchAdvise, () => {
    </header>
    
 
-<RouterView :searchAdvise="searchAdvise "/>
+<RouterView :searchAdvise="searchAdvise"/>
   </div>
    
 </template>

@@ -6,11 +6,12 @@ import { useRouter } from 'vue-router';
 
 
 
+
 const router = useRouter()
 
 
 const changeRoute = () => {
-   router.push({path: '/entry'})
+   router.push({path: '/'})
 }
 
 const checkToken = async() => {
@@ -24,6 +25,8 @@ if(result === 'error'){
 }
 
 checkToken()
+
+
 
 </script>
 

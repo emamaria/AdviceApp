@@ -7,7 +7,8 @@ import { defineStore } from 'pinia'
  const auth = localStorage.getItem('token')?'ok-auth': {}
 
 export const useUserStore = defineStore('user', () => {
-  
+  //userData : email, uid, name
+  //authStatus: ok-auth, no-auth, loading
   const userData = ref({})
   const authStatus = ref('no-auth') //ok-auth //no-auth//loading
   const showUserData = computed(() => userData.value)
@@ -15,13 +16,9 @@ export const useUserStore = defineStore('user', () => {
   userData.value = user
   authStatus.value =  auth
 
-  function editUserData() {
-    userData.value.email = "carm@mail.com"
-    userData.value.name  = "carmencita"
-    userData.value.img  = "carm.png"
-    userData.value.text = "lorem ipsum aodisooajfijeifjoirh"
-
-
+  function editUserData(name, email) {
+    userData.value.email = name
+    userData.value.name  = email
   }
 
   return { showUserData, editUserData, userData, authStatus}
