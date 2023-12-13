@@ -6,6 +6,7 @@ export const useAdviceStore = defineStore('advices', () => {
 
   const allAdvice = ref([])
 
+  const userAuthAdvice = ref({})
   
   const addAvice = (oneAdvice) => {allAdvice.value.push(oneAdvice)}
   
@@ -18,8 +19,12 @@ export const useAdviceStore = defineStore('advices', () => {
     allAdvice.value = usersAdvice.advise
   }
 
+  const findAuthUserAdvice = (id) => {
+    userAuthAdvice.value = allAdvice.value.filter(advice => advice.userId._id === id)[0]
+  }
 
+ 
   
-  return { allAdvice,setAllAdvice, addAvice, deleteAdvice }
+  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, findAuthUserAdvice, userAuthAdvice }
 })
 

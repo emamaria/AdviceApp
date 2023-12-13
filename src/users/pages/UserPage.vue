@@ -1,6 +1,23 @@
 
 <script setup>
 import { ref } from 'vue';
+import useUserAuth from '../../home/composables/useUserAuth';
+
+import {useAdviceStore} from '../../stores/advice';
+import { storeToRefs } from 'pinia';
+
+
+const {userData: userInfo} = useUserAuth()
+const store = useAdviceStore()
+
+store.findAuthUserAdvice(userInfo.value.uid)
+
+const {userAuthAdvice} = storeToRefs(store)
+
+
+
+console.log(userAuthAdvice.value)
+
 
 let userData =  {id: "1", email: "carmen@mail.com", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."}
 const user = ref(userData)
@@ -22,7 +39,7 @@ const editImage = () => {
 
 <template>
    <div class="main_container">
-      <h3>{{ user.name }}</h3>
+
       <article class="user_advice_container">
          <header class="user_advice_header">
          <input type="text" v-model="user.name" class="user_name"><img :src="user.img" :alt="user.img">
