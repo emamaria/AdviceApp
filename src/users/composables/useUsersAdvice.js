@@ -21,10 +21,10 @@ const useUsersAdvice = () => {
 
   const {allAdvice} = storeToRefs(store)
 
-    const {isLoading, data, error} = useQuery({
+    const {isLoading, data, error, isError} = useQuery({
         queryKey: ['advice'],
         queryFn: getAllUsersAdvice,
-        staleTime: 1000 * 60 * 60
+        staleTime: 1000 * 60 * 60 * 24
     })
 
    
@@ -42,7 +42,9 @@ const useUsersAdvice = () => {
 
     return {
         allAdvice,
-        isLoading
+        isLoading,
+        error,
+        isError
     
     }
 }

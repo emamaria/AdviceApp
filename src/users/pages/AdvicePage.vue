@@ -4,7 +4,7 @@ import { computed} from 'vue';
 import useUsersAdvice from '../composables/useUsersAdvice.js' 
 
 
-const {allAdvice, isLoading} = useUsersAdvice()
+const {allAdvice, isLoading, isError, error} = useUsersAdvice()
 
 
 
@@ -28,6 +28,7 @@ const addLike = (id) => {
 
 <template>
    <div v-if="isLoading">Loading</div>
+   <div v-else-if="isError">{{error}}</div>
    <div v-else class="main_container">
       <article class="user_advice_container" v-for="advice of adviceData" :key="advice._id">
          <header class="user_advice_header">
