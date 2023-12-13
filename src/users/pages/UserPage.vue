@@ -1,29 +1,13 @@
 
 <script setup>
-import { ref } from 'vue';
-import useUserAuth from '../../home/composables/useUserAuth';
-
-import {useAdviceStore} from '../../stores/advice';
-import { storeToRefs } from 'pinia';
+import useUserAdvice from '../composables/useUserAdvice';
 
 
-const {userData: userInfo} = useUserAuth()
-const store = useAdviceStore()
+ const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
 
-store.findAuthUserAdvice(userInfo.value.uid)
-
-const {userAuthAdvice} = storeToRefs(store)
-
-
-
-console.log(userAuthAdvice.value)
-
-
-let userData =  {id: "1", email: "carmen@mail.com", name: "carmen", img: "carmen", liked: 0, text:"Do consectetur in proident pariatur irure eiusmod."}
-const user = ref(userData)
 
 const createAdvice = () => {
-   console.log(user.value.name, user.value.text)
+   // console.log(user.value.name, user.value.text)
 }
 
 const deleteAdvice = () => {
@@ -38,14 +22,17 @@ const editImage = () => {
 
 
 <template>
-   <div class="main_container">
+
+   <div v-if="isLoading">Loading</div>
+   <div v-else-if="isError">{{ error }}</div>
+   <div v-else class="main_container">
 
       <article class="user_advice_container">
          <header class="user_advice_header">
-         <input type="text" v-model="user.name" class="user_name"><img :src="user.img" :alt="user.img">
+         <input type="text" v-model="userAuthAdvice.userId.name" class="user_name"><img :src="userAuthAdvice.img" :alt="userAuthAdvice.img">
          </header>
          <main class="user_advice_main">
-         <textarea type="text" v-model="user.text" class="user_text" rows="4" cols="50"></textarea>
+         <textarea type="text" v-model="userAuthAdvice.advice" class="user_text" rows="4" cols="50"></textarea>
          </main>
          <footer class="advice_container_footer">
             <button @click="createAdvice"> Create </button>
@@ -81,7 +68,7 @@ h3{
    align-items: center;
 }
 .user_advice_container{
-      background-color: white;
+      background: white;
       margin: 10px;
       display: flex;
       flex-direction: column;

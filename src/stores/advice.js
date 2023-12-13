@@ -19,12 +19,18 @@ export const useAdviceStore = defineStore('advices', () => {
     allAdvice.value = usersAdvice.advise
   }
 
-  const findAuthUserAdvice = (id) => {
-    userAuthAdvice.value = allAdvice.value.filter(advice => advice.userId._id === id)[0]
+
+  const setAdvice = (userAdvice) => {
+    userAuthAdvice.value = userAdvice
   }
+
+
+  // const findAuthUserAdvice = (id) => {
+  //   userAuthAdvice.value = allAdvice.value.filter(advice => advice.userId._id === id)[0]
+  // }
 
  
   
-  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, findAuthUserAdvice, userAuthAdvice }
+  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, userAuthAdvice, setAdvice }
 })
 
