@@ -8,8 +8,6 @@ const {allAdvice, isLoading, isError, error} = useUsersAdvice()
 
 
 
-console.log(allAdvice.value, '1')
-
 const props = defineProps({
    searchAdvise: String
 })

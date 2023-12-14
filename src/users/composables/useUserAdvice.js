@@ -16,7 +16,7 @@ const getAllUsersAdvice = async() => {
 
 const allAdvice = await getAllUsersAdvice()
 
-console.log(allAdvice, "adv")
+
 
 const store = useAdviceStore()
 
@@ -28,15 +28,15 @@ const store = useAdviceStore()
                     
   const userId = userStore.userData.uid
   
-  console.log(userId, "id usuario")
+ 
   
   const authUserAdviceId = allAdvice.advise.filter(advice => advice.userId._id === userId)[0]._id
 
-  console.log(authUserAdviceId, "adviceid")
+
 const getAuthUserAdvice = async() => {
 
     const {data} = await userApi.get(`/advice/${authUserAdviceId}`)
-   console.log(data, "mi peticion")
+   
     return data
 }
 
@@ -68,6 +68,7 @@ const useUserAdvice = () => {
         isLoading,
         error,
         isError,
+       
        
     
     }

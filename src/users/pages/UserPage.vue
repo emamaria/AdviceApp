@@ -1,13 +1,21 @@
 
 <script setup>
 import useUserAdvice from '../composables/useUserAdvice';
+import { ref, watch } from 'vue';
 
 
  const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
 
 
+
+ let userAdviceText = ref(userAuthAdvice.value.advice)
+
+ 
+
+
+
 const createAdvice = () => {
-   // console.log(user.value.name, user.value.text)
+    console.log(userAdviceText.value, "advice user")
 }
 
 const deleteAdvice = () => {
@@ -18,6 +26,12 @@ const deleteAdvice = () => {
 const editImage = () => {
    console.log("edit image")
 }
+
+watch(userAuthAdvice, () => {
+   userAdviceText.value = userAuthAdvice.value.advice
+})
+
+
 </script>
 
 
@@ -29,15 +43,15 @@ const editImage = () => {
 
       <article class="user_advice_container">
          <header class="user_advice_header">
-         <input type="text" v-model="userAuthAdvice.userId.name" class="user_name"><img :src="userAuthAdvice.img" :alt="userAuthAdvice.img">
+         <h3>{{ userAuthAdvice.userId.name }}</h3><img :src="userAuthAdvice.img" :alt="userAuthAdvice.img">
          </header>
          <main class="user_advice_main">
-         <textarea type="text" v-model="userAuthAdvice.advice" class="user_text" rows="4" cols="50"></textarea>
+         <textarea type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
          </main>
          <footer class="advice_container_footer">
             <button @click="createAdvice"> Create </button>
             <button @click="deleteAdvice"> Delete </button>
-            <button @click="editImage"> Image</button>
+            <button @click="editImage">Image</button>
          </footer>
       </article>
    </div>
