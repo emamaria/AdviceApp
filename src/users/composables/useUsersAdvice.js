@@ -23,7 +23,7 @@ const useUsersAdvice = () => {
     const {isLoading, data, error, isError} = useQuery({
         queryKey: ['advice'],
         queryFn: getAllUsersAdvice,
-        staleTime: 1000 * 60 * 60 * 24
+        // staleTime: 1000 * 60 * 60 * 24
     })
 
    

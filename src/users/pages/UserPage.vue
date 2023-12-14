@@ -1,21 +1,46 @@
 
 <script setup>
+import userApi from '../../api/api';
 import useUserAdvice from '../composables/useUserAdvice';
 import { ref, watch } from 'vue';
 
 
  const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
 
-
+ 
 
  let userAdviceText = ref(userAuthAdvice.value.advice)
 
- 
+ const updateAdvice = async(updateData) => {
+
+   const options = {
+        headers: {'token': localStorage.getItem('token')}
+      };
+
+   const newData = {advice: updateData}
+
+      try {
+
+         console.log(options)
+         const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
+          
+         return data
+
+      } catch (error) {
+          console.log(error)
+      }
+   
+ }
 
 
 
-const createAdvice = () => {
-    console.log(userAdviceText.value, "advice user")
+const createAdvice = async() => {
+  
+    if(userAuthAdvice.value.advice.length > 0){
+       const updatedAdvice = await updateAdvice(userAdviceText.value)
+       console.log(updatedAdvice)
+    }
+    console.log(  userAuthAdvice.value.advice.length, "advice user")
 }
 
 const deleteAdvice = () => {
