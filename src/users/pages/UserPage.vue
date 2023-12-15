@@ -11,6 +11,26 @@ import { ref, watch } from 'vue';
 
  let userAdviceText = ref(userAuthAdvice.value.advice)
 
+ const postAdvice = async(postData) => {
+     
+   const options = {
+        headers: {'token': localStorage.getItem('token')}
+      };
+
+      const newData = {
+         advice: postData,
+         userId:userAuthAdvice.value.userId.uid
+      }
+
+      try {
+         const {data} = await userApi.post(`/advice`, newData, options )
+          console.log("post advice", data)
+          return data
+      } catch (error) {
+           console.log(error)
+      }
+ }
+
  const updateAdvice = async(updateData) => {
 
    const options = {
@@ -35,12 +55,18 @@ import { ref, watch } from 'vue';
 
 
 const createAdvice = async() => {
+
+  
   
     if(userAuthAdvice.value.advice.length > 0){
        const updatedAdvice = await updateAdvice(userAdviceText.value)
        console.log(updatedAdvice)
+    }else{
+        const postAdviceResult = await postAdvice(userAdviceText.value)
+
+        console.log(postAdviceResult)
     }
-    console.log(  userAuthAdvice.value.advice.length, "advice user")
+   
 }
 
 const deleteAdvice = () => {
