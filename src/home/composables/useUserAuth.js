@@ -2,6 +2,7 @@ import { storeToRefs } from 'pinia'
 import userApi from '../../api/api'
 import { useUserStore } from '../../stores/user'
 import { ref } from 'vue'
+import { useAdviceStore } from '../../stores/advice'
 
 
 
@@ -9,11 +10,10 @@ import { ref } from 'vue'
 
 const useUserAuth = () => {
    
-    const store = useUserStore()
+    const userStore = useUserStore()
+ 
 
-   
-
-    const { userData, authStatus } = storeToRefs(store)
+    const { userData, authStatus } = storeToRefs(userStore)
     
     const register = async(name, email, password) => {
 
@@ -136,14 +136,26 @@ const useUserAuth = () => {
             
         }
     }
+//añadido
+    const logout = () => {
 
+        //añadido useAdviceStore()
+    const adviceStore = useAdviceStore()
+   
+       console.log("logout")
+      
+       adviceStore.resetAdvice()
+       userStore.resetUser()
+       localStorage.clear()
+    }
     
 return{
    register,
    authStatus,
    login,
    validateToken,
-   userData
+   userData,
+   logout
 }
 }
 

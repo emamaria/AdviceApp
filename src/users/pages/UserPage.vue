@@ -11,16 +11,23 @@ import { ref, watch } from 'vue';
     const adviceStore = useAdviceStore()
 
  let userAdviceText = ref(userAuthAdvice.value.advice)
+ let userImage = ref(userAuthAdvice.value.img)
 
- const postAdvice = async(postData) => {
-     
-   const options = {
-        headers: {'token': localStorage.getItem('token')}
+ let sendingUserImage = ref()
+
+ const options = {
+        headers: {
+         'Content-Type': 'multipart/form-data',
+         'token': localStorage.getItem('token')}
       };
+
+ const postAdvice = async(postData, postImage) => {
+  
 
       const newData = {
          advice: postData,
-         userId:userAuthAdvice.value.userId.uid
+         userId:userAuthAdvice.value.userId.uid,
+         image: postImage
       }
 
       try {
@@ -34,19 +41,22 @@ import { ref, watch } from 'vue';
       }
  }
 
- const updateAdvice = async(updateData) => {
+ const updateAdvice = async(updateData, updateImage) => {
 
-   const options = {
-        headers: {'token': localStorage.getItem('token')}
-      };
+  
 
-   const newData = {advice: updateData}
+   const newData = {
+      advice: updateData,
+      image: updateImage
+   }
+
+   console.log(updateImage, "mi imagen")
 
       try {
 
          console.log(options)
          const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
-          
+        // adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
          return data
 
       } catch (error) {
@@ -62,10 +72,10 @@ const createAdvice = async() => {
   
   
     if(userAuthAdvice.value.advice.length > 0){
-       const updatedAdvice = await updateAdvice(userAdviceText.value)
+       const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
        console.log(updatedAdvice)
     }else{
-        const postAdviceResult = await postAdvice(userAdviceText.value)
+        const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
 
         console.log(postAdviceResult)
     }
@@ -77,13 +87,31 @@ const deleteAdvice = () => {
 }
 
 
-const editImage = () => {
-   console.log("edit image")
+const editImage = (e) => {
+
+   const myImage = e.target.files[0]
+
+   sendingUserImage.value = myImage
+
+   console.log(sendingUserImage.value, "imgen subo")
+
+   const readFile = new FileReader()
+   readFile.readAsDataURL(myImage)
+
+   readFile.onloadend = ()=> {
+   
+   userImage.value = readFile.result
+   }
+ 
+   
 }
 
 watch(userAuthAdvice, () => {
    userAdviceText.value = userAuthAdvice.value.advice
+   userImage.value = userAuthAdvice.value.img
 })
+
+
 
 
 </script>
@@ -97,7 +125,7 @@ watch(userAuthAdvice, () => {
 
       <article class="user_advice_container">
          <header class="user_advice_header">
-         <h3>{{ userAuthAdvice.userId.name }}</h3><img :src="userAuthAdvice.img" :alt="userAuthAdvice.img">
+         <h3>{{ userAuthAdvice.userId.name }}</h3><img :src="userImage" :alt="userImage">
          </header>
          <main class="user_advice_main">
          <textarea type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
@@ -105,7 +133,8 @@ watch(userAuthAdvice, () => {
          <footer class="advice_container_footer">
             <button @click="createAdvice"> Create </button>
             <button @click="deleteAdvice"> Delete </button>
-            <button @click="editImage">Image</button>
+            <input @change="editImage" type="file" name="avatar" id="avatar">
+            
          </footer>
       </article>
    </div>

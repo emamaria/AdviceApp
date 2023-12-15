@@ -6,8 +6,8 @@ import { computed, ref, watch } from 'vue';
 import useUserAuth from '../../home/composables/useUserAuth';
 
 
-
- const {userData} = useUserAuth()
+//añadido logout
+ const {userData, logout} = useUserAuth()
 
 const route = useRoute()
 const currentPath = computed(() => route.name)
@@ -32,7 +32,8 @@ watch(searchAdvise, () => {
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:userData.uid}}">User</RouterLink>
-      <RouterLink :to="{name: 'entry'}">Logout</RouterLink>
+      <RouterLink :to="{name: 'entry'}" @click="logout">Logout</RouterLink>
+     
       </nav>
    </header>
    
