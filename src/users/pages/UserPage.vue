@@ -1,13 +1,14 @@
 
 <script setup>
 import userApi from '../../api/api';
+import { useAdviceStore } from '../../stores/advice';
 import useUserAdvice from '../composables/useUserAdvice';
 import { ref, watch } from 'vue';
 
 
  const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
 
- 
+    const adviceStore = useAdviceStore()
 
  let userAdviceText = ref(userAuthAdvice.value.advice)
 
@@ -25,6 +26,8 @@ import { ref, watch } from 'vue';
       try {
          const {data} = await userApi.post(`/advice`, newData, options )
           console.log("post advice", data)
+
+          adviceStore.editAdvice(data.advice.advice, data.advice._id, data.advice.img) 
           return data
       } catch (error) {
            console.log(error)
