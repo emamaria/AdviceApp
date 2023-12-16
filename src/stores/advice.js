@@ -30,13 +30,13 @@ export const useAdviceStore = defineStore('advices', () => {
     userAuthAdvice.value.img = img
   }
 
-  const resetAdvice = () => {
-    allAdvice.value = []
-    userAuthAdvice.value = {}
-  }
+  // const resetAdvice = () => {
+  //   allAdvice.value = null
+  //   userAuthAdvice.value = null
+  // }
  
  
   
-  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, userAuthAdvice, setAdvice, editAdvice, resetAdvice}
+  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, userAuthAdvice, setAdvice, editAdvice}
 })
 

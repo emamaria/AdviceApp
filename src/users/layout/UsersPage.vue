@@ -1,7 +1,7 @@
 
 <script setup>
 
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { computed, ref, watch } from 'vue';
 import useUserAuth from '../../home/composables/useUserAuth';
 
@@ -10,6 +10,8 @@ import useUserAuth from '../../home/composables/useUserAuth';
  const {userData, logout} = useUserAuth()
 
 const route = useRoute()
+
+const router = useRouter()
 const currentPath = computed(() => route.name)
 console.log(currentPath.value)
 
@@ -19,7 +21,13 @@ watch(searchAdvise, () => {
   console.log(searchAdvise.value)
 })
 
+const cleanData = () => {
 
+   router.push({name: 'home'})
+   logout()
+
+  
+}
 
 </script>
 
@@ -32,8 +40,7 @@ watch(searchAdvise, () => {
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:userData.uid}}">User</RouterLink>
-      <RouterLink :to="{name: 'entry'}" @click="logout">Logout</RouterLink>
-     
+      <button @click="cleanData">Logout</button>
       </nav>
    </header>
    

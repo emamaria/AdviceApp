@@ -4,10 +4,13 @@ import userApi from '../../api/api';
 import { useAdviceStore } from '../../stores/advice';
 import useUserAdvice from '../composables/useUserAdvice';
 import { ref, watch } from 'vue';
+import {useUserStore} from '../../stores/user'
 
 
+const {userData} = useUserStore()
  const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
 
+ console.log(userAuthAdvice, "mi userAuth")
     const adviceStore = useAdviceStore()
 
  let userAdviceText = ref(userAuthAdvice.value.advice)

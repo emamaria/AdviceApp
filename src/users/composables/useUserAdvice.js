@@ -6,6 +6,11 @@ import {watch} from 'vue'
 import { useUserStore } from "../../stores/user";
 
 
+const userStore = useUserStore()
+const store = useAdviceStore()
+const {userAuthAdvice} = storeToRefs(store)
+  
+
 
 const getAllUsersAdvice = async() => {
 
@@ -17,17 +22,9 @@ const getAllUsersAdvice = async() => {
 const allAdvice = await getAllUsersAdvice()
 
 
-
-const store = useAdviceStore()
-
-    const {userAuthAdvice} = storeToRefs(store)
-  
-   const userStore = useUserStore()
-  
-   
-                    
   const userId = userStore.userData.uid
   
+  console.log("id del usuario registrado", userId)
  //miro si el usuario registrado ya tiene un advice
   
   const authUserAdviceId = allAdvice.advise.filter(advice => advice.userId?._id === userId)[0]?._id
@@ -59,6 +56,7 @@ const getAuthUserAdvice = async() => {
 
 const useUserAdvice = () => {
 
+    console.log( userId, authUserAdviceId)
     //si el usuario tiene advice ejecuto la peticion para obtener advice y retorno el advice ,loading, error etc
 
     if(authUserAdviceId){
@@ -90,6 +88,8 @@ const useUserAdvice = () => {
            }
     
     }else{
+
+        console.log("se ejecuta esto")
         return {
             //si el usuario no tiene advice hecho retorno el advice vacío solo con datos del usuario name, email, id
             userAuthAdvice  

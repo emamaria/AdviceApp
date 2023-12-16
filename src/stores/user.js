@@ -21,10 +21,10 @@ export const useUserStore = defineStore('user', () => {
     userData.value.name  = email
   }
 
-  const resetUser = () => {
-    userData.value = {}
-    authStatus.value = 'no-auth'
-  }
+  // const resetUser = () => {
+  //   userData.value = {}
+  //   authStatus.value = 'no-auth'
+  // }
 
-  return { showUserData, editUserData, userData, authStatus, resetUser}
+  return { showUserData, editUserData, userData, authStatus}
 })

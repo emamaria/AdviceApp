@@ -11,7 +11,9 @@ import { useAdviceStore } from '../../stores/advice'
 const useUserAuth = () => {
    
     const userStore = useUserStore()
- 
+    const adviceStore = useAdviceStore()
+
+    const { allAdvice, userAuthAdvice } = storeToRefs(adviceStore)
 
     const { userData, authStatus } = storeToRefs(userStore)
     
@@ -140,13 +142,15 @@ const useUserAuth = () => {
     const logout = () => {
 
         //añadido useAdviceStore()
-    const adviceStore = useAdviceStore()
+  
    
        console.log("logout")
-      
-       adviceStore.resetAdvice()
-       userStore.resetUser()
        localStorage.clear()
+       userData.value = {}
+       authStatus.value = "no-auth"
+       allAdvice.value = []
+       userAuthAdvice.value = {}
+       
     }
     
 return{
