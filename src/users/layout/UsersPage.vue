@@ -22,9 +22,10 @@ watch(searchAdvise, () => {
 })
 
 const cleanData = () => {
-
-   router.push({name: 'home'})
    logout()
+   window.location.reload()
+   router.push({name: 'home'})
+  
 
   
 }
