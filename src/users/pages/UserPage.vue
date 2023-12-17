@@ -15,8 +15,9 @@ const {userData} = useUserStore()
 
  let userAdviceText = ref(userAuthAdvice.value.advice)
  let userImage = ref(userAuthAdvice.value.img)
-
  let sendingUserImage = ref()
+
+ const loading =  ref(false)
 
  const options = {
         headers: {
@@ -26,7 +27,7 @@ const {userData} = useUserStore()
 
  const postAdvice = async(postData, postImage) => {
   
-
+      loading.value = true
       const newData = {
          advice: postData,
          userId:userAuthAdvice.value.userId.uid,
@@ -38,15 +39,19 @@ const {userData} = useUserStore()
           console.log("post advice", data)
 
           adviceStore.editAdvice(data.advice.advice, data.advice._id, data.advice.img) 
+
+          loading.value = false
           return data
       } catch (error) {
+
+           loading.value = false
            console.log(error)
       }
  }
 
  const updateAdvice = async(updateData, updateImage) => {
 
-  
+   loading.value = true
 
    const newData = {
       advice: updateData,
@@ -60,9 +65,12 @@ const {userData} = useUserStore()
          console.log(options)
          const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
         // adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
-         return data
+        loading.value = false
+        return data
 
       } catch (error) {
+
+         loading.value = false
           console.log(error)
       }
    
@@ -128,12 +136,13 @@ watch(userAuthAdvice, () => {
 
       <article class="user_advice_container">
          <header class="user_advice_header">
-         <h3>{{ userAuthAdvice.userId.name }}</h3><img :src="userImage" :alt="userImage">
+         <h3>{{ userData.name }}</h3><img :src="userImage" :alt="userImage">
          </header>
          <main class="user_advice_main">
          <textarea type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
          </main>
          <footer class="advice_container_footer">
+            <div v-if="loading">loading...</div>
             <button @click="createAdvice"> Create </button>
             <button @click="deleteAdvice"> Delete </button>
             <input @change="editImage" type="file" name="avatar" id="avatar">
