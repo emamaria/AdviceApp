@@ -18,6 +18,7 @@ const {userData} = useUserStore()
  let sendingUserImage = ref()
  const loading =  ref(false)
  const requestResponseOk = ref(false)
+ const requestResponseFail = ref(false)
 
  const options = {
         headers: {
@@ -52,6 +53,11 @@ const {userData} = useUserStore()
       } catch (error) {
 
            loading.value = false
+           requestResponseFail.value = true
+           setTimeout(()=> {
+            requestResponseFail.value = false
+         }, 2000)
+
            console.log(error)
       }
  }
@@ -87,6 +93,10 @@ const {userData} = useUserStore()
       } catch (error) {
 
          loading.value = false
+         requestResponseFail.value = true
+           setTimeout(()=> {
+            requestResponseFail.value = false
+         }, 2000)
           console.log(error)
       }
    
@@ -153,6 +163,7 @@ watch(userAuthAdvice, () => {
       <article class="user_advice_container">
          <header class="user_advice_header">
          <h3>{{ userData.name }}</h3>
+         <div v-if="requestResponseFail" class="req_response">Try Again!</div>
          <div v-if="requestResponseOk" class="req_response">Success!👍</div>
          <div v-if="loading">loading...</div>
          <img :src="userImage" :alt="userImage">
