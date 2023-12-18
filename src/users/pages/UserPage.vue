@@ -38,12 +38,13 @@ const {userData} = useUserStore()
       try {
          const {data} = await userApi.post(`/advice`, newData, options )
           console.log("post advice", data)
-
-          adviceStore.editAdvice(data.advice.advice, data.advice._id, data.advice.img) 
+  
 
           loading.value = false
 
           requestResponseOk.value = true
+
+          adviceStore.editAdvice(data.advice.advice,  data.advice.img, data.advice._id) 
 
          setTimeout(()=> {
          requestResponseOk.value = false
@@ -79,10 +80,13 @@ const {userData} = useUserStore()
 
          console.log(options)
          const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
-        // adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
+         console.log("patch data", data)
+        
         loading.value = false
 
         requestResponseOk.value = true
+
+        adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
 
         setTimeout(()=> {
          requestResponseOk.value = false
