@@ -5,7 +5,10 @@ import { useAdviceStore } from '../../stores/advice';
 import useUserAdvice from '../composables/useUserAdvice';
 import { ref, watch } from 'vue';
 import {useUserStore} from '../../stores/user'
+import { useQueryClient } from '@tanstack/vue-query';
 
+
+const queryClient = useQueryClient()
 
 const {userData} = useUserStore()
  const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
@@ -46,6 +49,7 @@ const {userData} = useUserStore()
 
           adviceStore.editAdvice(data.advice.advice,  data.advice.img, data.advice._id) 
 
+          queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
          setTimeout(()=> {
          requestResponseOk.value = false
          }, 2000)
@@ -88,6 +92,7 @@ const {userData} = useUserStore()
 
         adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
 
+        queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
         setTimeout(()=> {
          requestResponseOk.value = false
         }, 2000)

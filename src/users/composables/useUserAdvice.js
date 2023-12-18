@@ -65,7 +65,7 @@ const useUserAdvice = () => {
         const {isLoading, data, error, isError} = useQuery({
             queryKey: ['userAdvice', authUserAdviceId],
             queryFn: getAuthUserAdvice,
-            // staleTime: 1000 * 60 * 60 * 24
+           
         })
     
        
