@@ -38,6 +38,7 @@ const allAdvice = await getAllUsersAdvice()
         _id: "",
         advice: "",
         img: "",
+        like: 0,
         userId: userStore.userData
         
     })
@@ -72,7 +73,15 @@ const useUserAdvice = () => {
     
         watch(data, advice => {
             if(advice){
-                store.setAdvice(advice) 
+                console.log("advice", advice)
+                store.setAdvice({
+                    _id: advice._id,
+                    advice: advice.advice,
+                    img: advice.img,
+                    like: advice.like,
+                    userId: userStore.userData
+                    
+                }) 
                
             }
                            
