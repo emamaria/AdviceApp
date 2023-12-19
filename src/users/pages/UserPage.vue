@@ -60,13 +60,13 @@ const {userData} = useUserStore()
 
            loading.value = false
            requestResponseFail.value = true
-           requestFailMessage.value = error.response.data.errors.advice.msg
+           requestFailMessage.value = error.response.data.errors.advice.msg || "Try again"
            setTimeout(()=> {
             requestResponseFail.value = false
             requestFailMessage.value = ""
          }, 2000)
 
-           console.log(error.response.data.errors.advice.msg)
+         
       }
  }
 
@@ -106,8 +106,10 @@ const {userData} = useUserStore()
 
          loading.value = false
          requestResponseFail.value = true
+         requestFailMessage.value = error.response.data.errors.advice.msg || "Try again"
            setTimeout(()=> {
             requestResponseFail.value = false
+            requestFailMessage.value = ""
          }, 2000)
           console.log(error)
       }
