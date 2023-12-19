@@ -24,6 +24,7 @@ const {userData} = useUserStore()
  const requestResponseFail = ref(false)
  const requestFailMessage = ref("")
  const blockedCursor = ref(false)
+ let clickedButton = ref("")
 
  const options = {
         headers: {
@@ -170,8 +171,20 @@ watch(userAuthAdvice, () => {
    userImage.value = userAuthAdvice.value.img
 })
 
+const clickedButtonValue = (e) => {
+   clickedButton.value = e.target.value
+}
 
+const submit = () => {
+   if(clickedButton.value === "create"){
+      createAdvice()
+   }
 
+   if(clickedButton.value === "delete"){
+      deleteAdvice()
+   }
+  
+}
 
 </script>
 
@@ -182,7 +195,7 @@ watch(userAuthAdvice, () => {
    <div v-else-if="isError">{{ error }}</div>
    <div v-else class="main_container">
 
-      <article class="user_advice_container">
+      <form @submit.prevent="submit" class="user_advice_container">
          <header class="user_advice_header">
          <h3>{{ userData.name }}</h3>
          <div v-if="requestResponseFail" class="req_response">{{ requestFailMessage }}</div>
@@ -191,16 +204,16 @@ watch(userAuthAdvice, () => {
          <img :src="userImage" :alt="userImage">
          </header>
          <main class="user_advice_main">
-         <textarea type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
+         <textarea :required="false" type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
          </main>
          <footer class="advice_container_footer">
          
-            <button :class='(blockedCursor)?"block_cursor": ""' @click="createAdvice"> Create </button>
-            <button :class='(blockedCursor)?"block_cursor": ""' @click="deleteAdvice"> Delete </button>
+            <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="create"> Create </button>
+            <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="delete"> Delete </button>
             <input @change="editImage" type="file" name="avatar" id="avatar">
             
          </footer>
-      </article>
+      </form>
    </div>
  
 </template>
