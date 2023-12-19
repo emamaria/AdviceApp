@@ -60,7 +60,7 @@ const {userData} = useUserStore()
 
            loading.value = false
            requestResponseFail.value = true
-           requestFailMessage.value = error.response.data.errors.advice.msg || "Try again"
+           requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
            setTimeout(()=> {
             requestResponseFail.value = false
             requestFailMessage.value = ""
@@ -106,7 +106,7 @@ const {userData} = useUserStore()
 
          loading.value = false
          requestResponseFail.value = true
-         requestFailMessage.value = error.response.data.errors.advice.msg || "Try again"
+         requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
            setTimeout(()=> {
             requestResponseFail.value = false
             requestFailMessage.value = ""
@@ -122,7 +122,7 @@ const createAdvice = async() => {
 
   
   
-    if(userAuthAdvice.value.advice.length > 0){
+    if(userAuthAdvice.value.advice.length > 0 || userAuthAdvice.value.img){
        const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
        console.log(updatedAdvice)
     }else{
