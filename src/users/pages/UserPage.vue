@@ -23,6 +23,7 @@ const {userData} = useUserStore()
  const requestResponseOk = ref(false)
  const requestResponseFail = ref(false)
  const requestFailMessage = ref("")
+ const blockedCursor = ref(false)
 
  const options = {
         headers: {
@@ -100,6 +101,8 @@ const {userData} = useUserStore()
          requestResponseOk.value = false
         }, 2000)
 
+        
+
         return data
 
       } catch (error) {
@@ -110,6 +113,7 @@ const {userData} = useUserStore()
            setTimeout(()=> {
             requestResponseFail.value = false
             requestFailMessage.value = ""
+           
          }, 2000)
           console.log(error)
       }
@@ -120,7 +124,9 @@ const {userData} = useUserStore()
 
 const createAdvice = async() => {
 
-  
+   blockedCursor.value = true
+
+   
   
     if(userAuthAdvice.value.advice.length > 0 || userAuthAdvice.value.img){
        const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
@@ -130,6 +136,8 @@ const createAdvice = async() => {
 
         console.log(postAdviceResult)
     }
+   
+    blockedCursor.value = false 
    
 }
 
@@ -187,8 +195,8 @@ watch(userAuthAdvice, () => {
          </main>
          <footer class="advice_container_footer">
          
-            <button @click="createAdvice"> Create </button>
-            <button @click="deleteAdvice"> Delete </button>
+            <button :class='(blockedCursor)?"block_cursor": ""' @click="createAdvice"> Create </button>
+            <button :class='(blockedCursor)?"block_cursor": ""' @click="deleteAdvice"> Delete </button>
             <input @change="editImage" type="file" name="avatar" id="avatar">
             
          </footer>
@@ -200,6 +208,10 @@ watch(userAuthAdvice, () => {
 
 <style scoped>
 
+
+.block_cursor{
+   pointer-events: none
+}
 .req_response{
    font-size: 2rem;
 }
