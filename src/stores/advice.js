@@ -18,6 +18,7 @@ export const useAdviceStore = defineStore('advices', () => {
   const deleteAdvice = (removeAdviceId) => {
     
     allAdvice.value = allAdvice.value.filter(advice => advice._id !== removeAdviceId )
+    localStorage.setItem('allAdvice', JSON.stringify(allAdvice.value))
   }
 
   const setAllAdvice = (usersAdvice) => {
@@ -42,6 +43,7 @@ export const useAdviceStore = defineStore('advices', () => {
     userAuthAdvice.value.advice = "",
     userAuthAdvice.value.img = "",
     userAuthAdvice.value.like = 0
+    localStorage.setItem('userAdvice', JSON.stringify(userAuthAdvice.value))
   }
  
  
