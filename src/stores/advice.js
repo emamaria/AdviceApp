@@ -12,7 +12,10 @@ export const useAdviceStore = defineStore('advices', () => {
 
   const userAuthAdvice = ref({...userAdvice})
   
-  const addAvice = (oneAdvice) => {allAdvice.value = [...allAdvice.value, oneAdvice]}
+  const addAvice = (oneAdvice) => {
+    allAdvice.value = [...allAdvice.value, oneAdvice]
+    localStorage.setItem('allAdvice', JSON.stringify(allAdvice.value))
+  }
   
 
   const deleteAdvice = (removeAdviceId) => {
