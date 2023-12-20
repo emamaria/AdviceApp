@@ -82,7 +82,14 @@ const useUserAdvice = () => {
                     userId: userStore.userData
                     
                 }) 
-               
+                localStorage.setItem('userAdvice', JSON.stringify({
+                    _id: advice._id,
+                    advice: advice.advice,
+                    img: advice.img,
+                    like: advice.like,
+                    userId: userStore.userData
+                    
+                }))
             }
                            
         }, {immediate: true})
