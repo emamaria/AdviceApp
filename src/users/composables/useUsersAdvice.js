@@ -32,7 +32,7 @@ const useUsersAdvice = () => {
     watch(data, usersAdvice => {
         if(usersAdvice){
             store.setAllAdvice(usersAdvice)
-           
+            localStorage.setItem('allAdvice', JSON.stringify(usersAdvice.advise))
         }
                        
     }, {immediate: true})

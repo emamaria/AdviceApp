@@ -51,7 +51,16 @@ const {userData} = useUserStore()
           requestResponseOk.value = true
 
           adviceStore.editAdvice(data.advice.advice,  data.advice.img, data.advice._id) 
-
+         //  adviceStore.addAvice({
+         //    _id: data.advice._id,
+         //    advice: data.advice.advice,
+         //    createdAt: data.advice.createdAt,
+         //    img: data.advice.img,
+         //    like: data.advice.like,
+         //    likedUsersId:data.advice.likedUsersId,
+         //    updatedAt: data.advice.updatedAt,
+         //    userId: data.advice.userId
+         //  })
           queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
          setTimeout(()=> {
          requestResponseOk.value = false
