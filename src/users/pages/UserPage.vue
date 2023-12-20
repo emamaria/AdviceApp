@@ -152,7 +152,10 @@ const deleteAdvice = async() => {
 
   try {
    const {data} = await userApi.delete(`/advice/${userAuthAdvice.value._id}`, options )
-   
+   queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
+   queryClient.invalidateQueries({queryKey: ['advice']})
+   adviceStore.deleteAdvice(userAuthAdvice.value._id)
+   adviceStore.resetUserAuthAdvice()
    loading.value = false
 
    requestResponseOk.value = true
@@ -160,14 +163,10 @@ const deleteAdvice = async() => {
    
      console.log(data, "delete data")
 
-     queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
-     queryClient.invalidateQueries({queryKey: ['advice']})
-
-    
+   
         setTimeout(()=> {
          requestResponseOk.value = false
-         adviceStore.deleteAdvice(userAuthAdvice.value._id)
-         adviceStore.resetUserAuthAdvice()
+         
          
         }, 2000)
 
@@ -238,7 +237,7 @@ const submit = async() => {
 <template>
 
    <div v-if="isLoading">Loading</div>
-   <div v-else-if="isError">{{ error }}</div>
+   <div v-else-if="isError">{{ error }}kasfalafl</div>
    <div v-else class="main_container">
 
       <form @submit.prevent="submit" class="user_advice_container">
