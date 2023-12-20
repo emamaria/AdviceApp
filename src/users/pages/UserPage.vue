@@ -96,7 +96,7 @@ const {userData} = useUserStore()
         requestResponseOk.value = true
 
         adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
-
+        
         queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
         setTimeout(()=> {
          requestResponseOk.value = false
@@ -160,10 +160,14 @@ const deleteAdvice = async() => {
      console.log(data, "delete data")
 
      queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
+     queryClient.invalidateQueries({queryKey: ['advice']})
+
+    
         setTimeout(()=> {
          requestResponseOk.value = false
+         adviceStore.deleteAdvice(userAuthAdvice.value._id)
          adviceStore.resetUserAuthAdvice()
-        
+         
         }, 2000)
 
         

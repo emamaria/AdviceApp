@@ -12,7 +12,8 @@ export const useAdviceStore = defineStore('advices', () => {
   
 
   const deleteAdvice = (removeAdviceId) => {
-    allAdvice.value.filter(advice => advice.id === removeAdviceId )
+    
+    allAdvice.value = allAdvice.value.filter(advice => advice._id !== removeAdviceId )
   }
 
   const setAllAdvice = (usersAdvice) => {
