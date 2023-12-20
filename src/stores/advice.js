@@ -33,6 +33,7 @@ export const useAdviceStore = defineStore('advices', () => {
     userAuthAdvice.value.advice = userAdvice
     if(id)  userAuthAdvice.value._id = id
     if(img)  userAuthAdvice.value.img = img
+    localStorage.setItem('userAdvice', JSON.stringify(userAuthAdvice.value))
   }
 
   const resetUserAuthAdvice = () => {

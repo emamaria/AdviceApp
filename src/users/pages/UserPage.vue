@@ -179,6 +179,7 @@ const deleteAdvice = async() => {
          
         }, 2000)
 
+        return data
         
 } catch (error) {
       console.log(error)
@@ -228,13 +229,13 @@ const clickedButtonValue = (e) => {
    clickedButton.value = e.target.value
 }
 
-const submit = () => {
+const submit = async() => {
    if(clickedButton.value === "create"){
-      createAdvice()
+     await createAdvice()
    }
 
    if(clickedButton.value === "delete"){
-      deleteAdvice()
+     await deleteAdvice()
    }
   
 }
