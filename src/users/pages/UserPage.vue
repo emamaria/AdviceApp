@@ -142,8 +142,43 @@ const createAdvice = async() => {
    
 }
 
-const deleteAdvice = () => {
-  console.log("delete advice")
+const deleteAdvice = async() => {
+
+   loading.value = true
+   blockedCursor.value = true
+
+  console.log("delete advice", (userAuthAdvice.value._id))
+
+  try {
+   const {data} = await userApi.delete(`/advice/${userAuthAdvice.value._id}`, options )
+   
+   loading.value = false
+
+   requestResponseOk.value = true
+  
+   
+     console.log(data, "delete data")
+
+     queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
+        setTimeout(()=> {
+         requestResponseOk.value = false
+         adviceStore.resetUserAuthAdvice()
+        
+        }, 2000)
+
+        
+} catch (error) {
+      console.log(error)
+      loading.value = false
+         requestResponseFail.value = true
+         requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
+           setTimeout(()=> {
+            requestResponseFail.value = false
+            requestFailMessage.value = ""
+           
+         }, 2000)
+        
+  }
 }
 
 
@@ -169,7 +204,12 @@ const editImage = (e) => {
 watch(userAuthAdvice, () => {
    userAdviceText.value = userAuthAdvice.value.advice
    userImage.value = userAuthAdvice.value.img
+ 
+   
 })
+
+
+
 
 const clickedButtonValue = (e) => {
    clickedButton.value = e.target.value

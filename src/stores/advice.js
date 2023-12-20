@@ -30,13 +30,26 @@ export const useAdviceStore = defineStore('advices', () => {
     if(img)  userAuthAdvice.value.img = img
   }
 
-  // const resetAdvice = () => {
-  //   allAdvice.value = null
-  //   userAuthAdvice.value = null
-  // }
+  const resetUserAuthAdvice = () => {
+   
+    userAuthAdvice.value._id = ""
+    userAuthAdvice.value.advice = "",
+    userAuthAdvice.value.img = "",
+    userAuthAdvice.value.like = 0
+  }
  
  
   
-  return { allAdvice,setAllAdvice, addAvice, deleteAdvice, userAuthAdvice, setAdvice, editAdvice}
+  return { 
+    allAdvice,
+    setAllAdvice,
+    addAvice,
+    deleteAdvice,
+    userAuthAdvice, 
+    setAdvice,
+    editAdvice,
+    resetUserAuthAdvice,
+    // userAuthAdviceId: computed(() => userAuthAdvice.value._id)
+  }
 })
 

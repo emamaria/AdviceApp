@@ -101,7 +101,8 @@ const useUserAdvice = () => {
         console.log("se ejecuta esto")
         return {
             //si el usuario no tiene advice hecho retorno el advice vacío solo con datos del usuario name, email, id
-            userAuthAdvice  
+            userAuthAdvice
+           
         }
     }
 
