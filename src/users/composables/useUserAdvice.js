@@ -57,15 +57,15 @@ const getAuthUserAdvice = async() => {
 
 const useUserAdvice = () => {
 
-    console.log( userId, authUserAdviceId)
+    console.log( "mira", userId, authUserAdviceId, allAdvice)
     //si el usuario tiene advice ejecuto la peticion para obtener advice y retorno el advice ,loading, error etc
 
     if(authUserAdviceId){
-
+           console.log("se esta ejecutando  vuequery")
         const {isLoading, data, error, isError} = useQuery({
             queryKey: ['userAdvice', authUserAdviceId],
             queryFn: getAuthUserAdvice,
-           
+          
         })
     
        

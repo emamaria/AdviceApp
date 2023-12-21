@@ -11,7 +11,7 @@ import { useQueryClient } from '@tanstack/vue-query';
 const queryClient = useQueryClient()
 
 const {userData} = useUserStore()
- const {userAuthAdvice, isError, error, isLoading} = useUserAdvice()
+ const {userAuthAdvice, isLoading} = useUserAdvice()
 
  console.log(userAuthAdvice, "mi userAuth")
     const adviceStore = useAdviceStore()
@@ -19,7 +19,7 @@ const {userData} = useUserStore()
  let userAdviceText = ref(userAuthAdvice.value.advice)
  let userImage = ref(userAuthAdvice.value.img)
  let sendingUserImage = ref()
-
+ const imgInput = ref(null)
  const loading =  ref(false)
  const requestResponseOk = ref(false)
  const requestResponseFail = ref(false)
@@ -27,6 +27,7 @@ const {userData} = useUserStore()
  const blockedCursor = ref(false)
  let clickedButton = ref("")
  
+
 
  const options = {
         headers: {
@@ -150,20 +151,25 @@ const deleteAdvice = async() => {
    loading.value = true
    blockedCursor.value = true
 
-  console.log("delete advice", (userAuthAdvice.value._id))
+  
 
   try {
    const {data} = await userApi.delete(`/advice/${userAuthAdvice.value._id}`, options )
-   await queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
-   await queryClient.invalidateQueries({queryKey: ['advice']})
+   queryClient.removeQueries({ queryKey: ['userAdvice',userAuthAdvice.value._id] });
+   queryClient.invalidateQueries({queryKey: ['advice']})
    adviceStore.deleteAdvice(userAuthAdvice.value._id)
    adviceStore.resetUserAuthAdvice()
+   console.log("delete advice", (userAuthAdvice.value._id))
    loading.value = false
 
    requestResponseOk.value = true
   
    userAdviceText.value = userAuthAdvice.value.advice
    userImage.value = userAuthAdvice.value.img
+    if(imgInput.value?.value?.length > 0){
+      console.log(imgInput.value.value)
+      imgInput.value.value = ""
+    } 
      console.log(data, "delete data")
 
    
@@ -244,7 +250,6 @@ const submit = async() => {
 <template>
 
    <div v-if="isLoading">Loading</div>
-   <div v-else-if="isError">{{ error }}kasfalafl</div>
    <div v-else class="main_container">
 
       <form @submit.prevent="submit" class="user_advice_container">
@@ -262,7 +267,7 @@ const submit = async() => {
          
             <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="create"> Create </button>
             <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="delete"> Delete </button>
-            <input @change="editImage" type="file" name="avatar" id="avatar">
+            <input @change="editImage" type="file" name="avatar" id="avatar" ref="imgInput">
             
          </footer>
       </form>
