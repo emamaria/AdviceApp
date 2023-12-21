@@ -1,4 +1,4 @@
-import { ref} from 'vue'
+import {ref} from 'vue'
 import { defineStore } from 'pinia'
 
 const adviceAll = JSON.parse(localStorage.getItem('allAdvice')) || []
@@ -59,8 +59,7 @@ export const useAdviceStore = defineStore('advices', () => {
     userAuthAdvice, 
     setAdvice,
     editAdvice,
-    resetUserAuthAdvice,
-    // userAuthAdviceId: computed(() => userAuthAdvice.value._id)
+    resetUserAuthAdvice
   }
 })
 

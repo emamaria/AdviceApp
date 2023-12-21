@@ -19,12 +19,14 @@ const {userData} = useUserStore()
  let userAdviceText = ref(userAuthAdvice.value.advice)
  let userImage = ref(userAuthAdvice.value.img)
  let sendingUserImage = ref()
+
  const loading =  ref(false)
  const requestResponseOk = ref(false)
  const requestResponseFail = ref(false)
  const requestFailMessage = ref("")
  const blockedCursor = ref(false)
  let clickedButton = ref("")
+ 
 
  const options = {
         headers: {
@@ -152,21 +154,23 @@ const deleteAdvice = async() => {
 
   try {
    const {data} = await userApi.delete(`/advice/${userAuthAdvice.value._id}`, options )
-   queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
-   queryClient.invalidateQueries({queryKey: ['advice']})
+   await queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
+   await queryClient.invalidateQueries({queryKey: ['advice']})
    adviceStore.deleteAdvice(userAuthAdvice.value._id)
    adviceStore.resetUserAuthAdvice()
    loading.value = false
 
    requestResponseOk.value = true
   
-   
+   userAdviceText.value = userAuthAdvice.value.advice
+   userImage.value = userAuthAdvice.value.img
      console.log(data, "delete data")
 
    
         setTimeout(()=> {
          requestResponseOk.value = false
-         
+         blockedCursor.value = false
+        
          
         }, 2000)
 
@@ -178,6 +182,7 @@ const deleteAdvice = async() => {
          requestResponseFail.value = true
          requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
            setTimeout(()=> {
+            blockedCursor.value = false
             requestResponseFail.value = false
             requestFailMessage.value = ""
            
@@ -210,8 +215,8 @@ watch(userAuthAdvice, () => {
    userAdviceText.value = userAuthAdvice.value.advice
    userImage.value = userAuthAdvice.value.img
  
-   
 })
+
 
 
 
@@ -230,6 +235,8 @@ const submit = async() => {
    }
   
 }
+
+
 
 </script>
 

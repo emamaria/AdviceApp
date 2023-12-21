@@ -99,8 +99,7 @@ const useUserAdvice = () => {
             userAuthAdvice,
             isLoading,
             error,
-            isError,
-           
+            isError
            }
     
     }else{
