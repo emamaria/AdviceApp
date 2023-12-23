@@ -36,11 +36,11 @@ const {userData} = useUserStore()
       };
 
  const postAdvice = async(postData, postImage) => {
-  
+   console.log(userData.uid, "uid usuario")
       loading.value = true
       const newData = {
          advice: postData,
-         userId:userAuthAdvice.value.userId.uid,
+         userId:userData.uid,
          image: postImage
       }
 
@@ -55,8 +55,8 @@ const {userData} = useUserStore()
 
           adviceStore.editAdvice(data.advice.advice,  data.advice.img, data.advice._id) 
           adviceStore.addAvice({...data.advice})
-         
-          queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
+          queryClient.removeQueries({ queryKey: ['userAdvice',userAuthAdvice.value._id] });
+         // queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
          setTimeout(()=> {
          requestResponseOk.value = false
          }, 2000)
@@ -131,15 +131,19 @@ const createAdvice = async() => {
 
    blockedCursor.value = true
 
-   
+   console.log(userAuthAdvice.value?.id, "id")
   
-    if(userAuthAdvice.value.advice.length > 0 || userAuthAdvice.value.img){
-       const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
-       console.log(updatedAdvice)
-    }else{
-        const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
-
+    if(userAuthAdvice?.value?._id === ""){
+      console.log(userAuthAdvice?.value?._id === "")
+      const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
+        console.log("se ejecuta if")
         console.log(postAdviceResult)
+      
+    }else{
+
+      
+      const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
+       console.log(updatedAdvice)
     }
    
     blockedCursor.value = false 

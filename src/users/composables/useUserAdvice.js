@@ -8,27 +8,40 @@ import { useUserStore } from "../../stores/user";
 
 const userStore = useUserStore()
 const store = useAdviceStore()
-const {userAuthAdvice} = storeToRefs(store)
+const {userAuthAdvice, allAdvice} = storeToRefs(store)
+const userId = userStore.userData.uid 
+
+
+// const getAllUsersAdvice = async() => {
+
+//     const {data} = await userApi.get('/advice')
+
+//     return data
+// }
+
+// const allAdvice = await getAllUsersAdvice()
+
+
+ 
   
+//   console.log("id del usuario registrado", userId)
+ //miro si el usuario registrado ya tiene un advice
+  
+  // const authUserAdviceId = allAdvice.advise.filter(advice => advice.userId?._id === userId)[0]?._id
 
 
-const getAllUsersAdvice = async() => {
 
-    const {data} = await userApi.get('/advice')
+const getAuthUserAdvice = async(adviceId) => {
 
+    
+    const {data} = await userApi.get(`/advice/${adviceId}`)
+   
     return data
 }
 
-const allAdvice = await getAllUsersAdvice()
+const useUserAdvice = () => {
 
-
-  const userId = userStore.userData.uid
-  
-  console.log("id del usuario registrado", userId)
- //miro si el usuario registrado ya tiene un advice
-  
-  const authUserAdviceId = allAdvice.advise.filter(advice => advice.userId?._id === userId)[0]?._id
-
+    const authUserAdviceId = allAdvice.value.filter(advice => advice.userId?._id === userId)[0]?._id
 
   console.log(authUserAdviceId, "id del advice de usuario registrado")
 
@@ -47,16 +60,6 @@ const allAdvice = await getAllUsersAdvice()
 }
 
 
-const getAuthUserAdvice = async() => {
-
-    
-    const {data} = await userApi.get(`/advice/${authUserAdviceId}`)
-   
-    return data
-}
-
-const useUserAdvice = () => {
-
     console.log( "mira", userId, authUserAdviceId, allAdvice)
     //si el usuario tiene advice ejecuto la peticion para obtener advice y retorno el advice ,loading, error etc
 
@@ -64,7 +67,7 @@ const useUserAdvice = () => {
            console.log("se esta ejecutando  vuequery")
         const {isLoading, data, error, isError} = useQuery({
             queryKey: ['userAdvice', authUserAdviceId],
-            queryFn: getAuthUserAdvice,
+            queryFn: () => getAuthUserAdvice(authUserAdviceId),
           
         })
     
