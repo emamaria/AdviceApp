@@ -46,8 +46,6 @@ const {userData} = useUserStore()
 
       try {
          const {data} = await userApi.post(`/advice`, newData, options )
-          console.log("post advice", data)
-  
 
           loading.value = false
 
@@ -87,13 +85,13 @@ const {userData} = useUserStore()
       image: updateImage
    }
 
-   console.log(updateImage, "mi imagen")
+
 
       try {
 
          console.log(options)
          const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
-         console.log("patch data", data)
+         
         
         loading.value = false
 
@@ -131,12 +129,12 @@ const createAdvice = async() => {
 
    blockedCursor.value = true
 
-   console.log(userAuthAdvice.value?.id, "id")
+  
   
     if(userAuthAdvice?.value?._id === ""){
-      console.log(userAuthAdvice?.value?._id === "")
+    
       const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
-        console.log("se ejecuta if")
+      
         console.log(postAdviceResult)
       
     }else{
@@ -174,7 +172,7 @@ const deleteAdvice = async() => {
       console.log(imgInput.value.value)
       imgInput.value.value = ""
     } 
-     console.log(data, "delete data")
+   
 
    
         setTimeout(()=> {
