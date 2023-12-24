@@ -1,203 +1,61 @@
 
 <script setup>
-import userApi from '../../api/api';
-import { useAdviceStore } from '../../stores/advice';
+
+
 import useUserAdvice from '../composables/useUserAdvice';
 import { ref, watch } from 'vue';
 import {useUserStore} from '../../stores/user'
-import { useQueryClient } from '@tanstack/vue-query';
-
-
-const queryClient = useQueryClient()
+import useAdviceReq from '../composables/useAdviceReq';
 
 const {userData} = useUserStore()
- const {userAuthAdvice, isLoading} = useUserAdvice()
+const {userAuthAdvice, isLoading} = useUserAdvice()
 
- console.log(userAuthAdvice, "mi userAuth")
-    const adviceStore = useAdviceStore()
-
- let userAdviceText = ref(userAuthAdvice.value.advice)
- let userImage = ref(userAuthAdvice.value.img)
- let sendingUserImage = ref()
- const imgInput = ref(null)
- const loading =  ref(false)
- const requestResponseOk = ref(false)
- const requestResponseFail = ref(false)
- const requestFailMessage = ref("")
- const blockedCursor = ref(false)
- let clickedButton = ref("")
+let userAdviceText = ref(userAuthAdvice.value.advice)
+let userImage = ref(userAuthAdvice.value.img)
+let sendingUserImage = ref()
+const imgInput = ref(null)
+const loading =  ref(false)
+const requestResponseOk = ref(false)
+const requestResponseFail = ref(false)
+const requestFailMessage = ref("")
+const blockedCursor = ref(false)
+let clickedButton = ref("")
  
+ const { postAdvice,updateAdvice,deleteAdvice} = useAdviceReq(
+   userData,
+    loading,
+    requestResponseOk,
+    userAuthAdvice,
+    requestResponseFail,
+    requestFailMessage,
+    blockedCursor,
+    userAdviceText,
+    userImage,
+    imgInput
+   )
 
-
- const options = {
-        headers: {
-         'Content-Type': 'multipart/form-data',
-         'token': localStorage.getItem('token')}
-      };
-
- const postAdvice = async(postData, postImage) => {
-   console.log(userData.uid, "uid usuario")
-      loading.value = true
-      const newData = {
-         advice: postData,
-         userId:userData.uid,
-         image: postImage
-      }
-
-      try {
-         const {data} = await userApi.post(`/advice`, newData, options )
-
-          loading.value = false
-
-          requestResponseOk.value = true
-
-          adviceStore.editAdvice(data.advice.advice,  data.advice.img, data.advice._id) 
-          adviceStore.addAvice({...data.advice})
-          queryClient.removeQueries({ queryKey: ['userAdvice',userAuthAdvice.value._id] });
-         // queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
-         setTimeout(()=> {
-         requestResponseOk.value = false
-         }, 2000)
-
-          return data
-      } catch (error) {
-
-           loading.value = false
-           requestResponseFail.value = true
-           requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
-           setTimeout(()=> {
-            requestResponseFail.value = false
-            requestFailMessage.value = ""
-         }, 2000)
-
-         
-      }
- }
-
-
-
- const updateAdvice = async(updateData, updateImage) => {
-
-   loading.value = true
-
-   const newData = {
-      advice: updateData,
-      image: updateImage
-   }
-
-
-
-      try {
-
-         console.log(options)
-         const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
-         
-        
-        loading.value = false
-
-        requestResponseOk.value = true
-
-        adviceStore.editAdvice(data.updatedAdvice.advice, data.updatedAdvice.img) 
-        
-        queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
-        setTimeout(()=> {
-         requestResponseOk.value = false
-        }, 2000)
-
-        
-
-        return data
-
-      } catch (error) {
-
-         loading.value = false
-         requestResponseFail.value = true
-         requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
-           setTimeout(()=> {
-            requestResponseFail.value = false
-            requestFailMessage.value = ""
-           
-         }, 2000)
-          console.log(error)
-      }
-   
- }
-
-
+ 
 
 const createAdvice = async() => {
 
    blockedCursor.value = true
 
-  
-  
-    if(userAuthAdvice?.value?._id === ""){
+   if(userAuthAdvice?.value?._id === ""){
     
-      const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
+   const postAdviceResult = await postAdvice(userAdviceText.value, sendingUserImage.value)
       
-        console.log(postAdviceResult)
+   console.log(postAdviceResult)
       
     }else{
 
-      
-      const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
-       console.log(updatedAdvice)
+     const updatedAdvice = await updateAdvice(userAdviceText.value, sendingUserImage.value)
+      console.log(updatedAdvice)
     }
    
     blockedCursor.value = false 
    
 }
 
-const deleteAdvice = async() => {
-
-   loading.value = true
-   blockedCursor.value = true
-
-  
-
-  try {
-   const {data} = await userApi.delete(`/advice/${userAuthAdvice.value._id}`, options )
-   queryClient.removeQueries({ queryKey: ['userAdvice',userAuthAdvice.value._id] });
-   queryClient.invalidateQueries({queryKey: ['advice']})
-   adviceStore.deleteAdvice(userAuthAdvice.value._id)
-   adviceStore.resetUserAuthAdvice()
-   console.log("delete advice", (userAuthAdvice.value._id))
-   loading.value = false
-
-   requestResponseOk.value = true
-  
-   userAdviceText.value = userAuthAdvice.value.advice
-   userImage.value = userAuthAdvice.value.img
-    if(imgInput.value?.value?.length > 0){
-      console.log(imgInput.value.value)
-      imgInput.value.value = ""
-    } 
-   
-
-   
-        setTimeout(()=> {
-         requestResponseOk.value = false
-         blockedCursor.value = false
-        
-         
-        }, 2000)
-
-        return data
-        
-} catch (error) {
-      console.log(error)
-      loading.value = false
-         requestResponseFail.value = true
-         requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"
-           setTimeout(()=> {
-            blockedCursor.value = false
-            requestResponseFail.value = false
-            requestFailMessage.value = ""
-           
-         }, 2000)
-        
-  }
-}
 
 
 const editImage = (e) => {
@@ -205,8 +63,6 @@ const editImage = (e) => {
    const myImage = e.target.files[0]
 
    sendingUserImage.value = myImage
-
-   console.log(sendingUserImage.value, "imgen subo")
 
    const readFile = new FileReader()
    readFile.readAsDataURL(myImage)
@@ -218,15 +74,6 @@ const editImage = (e) => {
  
    
 }
-
-watch(userAuthAdvice, () => {
-   userAdviceText.value = userAuthAdvice.value.advice
-   userImage.value = userAuthAdvice.value.img
- 
-})
-
-
-
 
 
 const clickedButtonValue = (e) => {
@@ -243,6 +90,13 @@ const submit = async() => {
    }
   
 }
+
+watch(userAuthAdvice, () => {
+   userAdviceText.value = userAuthAdvice.value.advice
+   userImage.value = userAuthAdvice.value.img
+ 
+})
+
 
 
 
