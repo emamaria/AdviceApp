@@ -115,7 +115,9 @@ const useAdviceReq = (
       }
      
       const deleteAdvice = async() => {
-
+         
+      if(userAuthAdvice.value._id === "") return
+      
         loading.value = true
         blockedCursor.value = true
      
