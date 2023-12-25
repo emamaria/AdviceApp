@@ -57,6 +57,12 @@ const createAdvice = async() => {
 }
 
 
+const triggerClickImg = (imgInput) =>{
+
+   imgInput.click()
+
+}
+
 
 const editImage = (e) => {
 
@@ -81,6 +87,8 @@ const clickedButtonValue = (e) => {
 }
 
 const submit = async() => {
+
+   
    if(clickedButton.value === "create"){
      await createAdvice()
    }
@@ -115,9 +123,10 @@ watch(userAuthAdvice, () => {
          <div v-if="requestResponseOk" class="req_response">Success!👍</div>
          <div v-if="loading">loading...</div>
          <img :src="userImage" :alt="userImage">
+         <button type="button" @click.stop="triggerClickImg(imgInput)" value="imgEvent">My Image</button>
          </header>
          <main class="user_advice_main">
-         <textarea :required="false" type="text" v-model="userAdviceText" class="user_text" rows="4" cols="50"></textarea>
+         <textarea :required="false" type="text" v-model="userAdviceText" placeholder="write your advice" class="user_text" rows="4" cols="50"></textarea>
          </main>
          <footer class="advice_container_footer">
          
@@ -134,7 +143,9 @@ watch(userAuthAdvice, () => {
 
 <style scoped>
 
-
+#avatar{
+   display: none;
+}
 .block_cursor{
    pointer-events: none
 }
