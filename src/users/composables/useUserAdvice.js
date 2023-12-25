@@ -12,24 +12,6 @@ const {userAuthAdvice, allAdvice} = storeToRefs(store)
 const userId = userStore.userData.uid 
 
 
-// const getAllUsersAdvice = async() => {
-
-//     const {data} = await userApi.get('/advice')
-
-//     return data
-// }
-
-// const allAdvice = await getAllUsersAdvice()
-
-
- 
-  
-//   console.log("id del usuario registrado", userId)
- //miro si el usuario registrado ya tiene un advice
-  
-  // const authUserAdviceId = allAdvice.advise.filter(advice => advice.userId?._id === userId)[0]?._id
-
-
 
 const getAuthUserAdvice = async(adviceId) => {
 
