@@ -25,7 +25,10 @@ export const useAdviceStore = defineStore('advices', () => {
   }
 
   const setAllAdvice = (usersAdvice) => {
-    allAdvice.value = usersAdvice.advise
+    
+    allAdvice.value = usersAdvice
+
+    localStorage.setItem('allAdvice', JSON.stringify(usersAdvice))
   }
 
 

@@ -31,8 +31,24 @@ const useUsersAdvice = () => {
 
     watch(data, usersAdvice => {
         if(usersAdvice){
-            store.setAllAdvice(usersAdvice)
-            localStorage.setItem('allAdvice', JSON.stringify(usersAdvice.advise))
+          let adviceArray = usersAdvice.advise.map(adv => {
+            
+            return {
+                _id: adv._id,
+                advice: adv.advice,
+                createdAt: adv.createdAt,
+                img: adv.img,
+                like: adv.like,
+                likedUsersId: adv.likedUsersId,
+                updatedAt: adv.updatedAt,
+                userId: adv.userId
+            }
+            
+          })
+
+          console.log(adviceArray, "adviceAll")
+            store.setAllAdvice(adviceArray)
+           
         }
                        
     }, {immediate: true})
