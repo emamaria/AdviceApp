@@ -52,6 +52,12 @@ export const useAdviceStore = defineStore('advices', () => {
     localStorage.setItem('userAdvice', JSON.stringify(userAuthAdvice.value))
   }
  
+  const sumLike = (adviceId) => {
+
+    const adviceIndex = allAdvice.value.findIndex(advice => advice._id === adviceId)
+    
+    allAdvice.value[adviceIndex].like += 1
+  }
  
   
   return { 
@@ -62,7 +68,8 @@ export const useAdviceStore = defineStore('advices', () => {
     userAuthAdvice, 
     setAdvice,
     editAdvice,
-    resetUserAuthAdvice
+    resetUserAuthAdvice,
+    sumLike
   }
 })
 

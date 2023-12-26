@@ -1,9 +1,26 @@
 <script setup>
 
+import {useAdviceStore} from '../../stores/advice'
+
+
+
+const store = useAdviceStore()
+const {sumLike} = store
 
 const props = defineProps({
  adviceData: Object
 })
+
+const addLike = (idFragment) => {
+
+//al ser el id del advice readonly tomo una copia fragmentada en 
+//formato array y recompongo como string
+
+let AdviceId = idFragment.join("")
+
+sumLike(AdviceId)
+}
+
 
 </script>
 
@@ -14,7 +31,9 @@ const props = defineProps({
          </header>
          <main class="user_advice_main">
          <p>{{ advice.advice }}</p>
-         <p @click="addLike(advice.id)">{{ advice.like }}</p>
+         <p>{{ advice.like }}</p>
+         <button @click="addLike([...advice._id])">Add Like</button>
+         <button @click="removeLike([...advice._id])">Remove Like</button>
          </main>
         
 </article>
