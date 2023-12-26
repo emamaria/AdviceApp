@@ -5,7 +5,7 @@ import {useAdviceStore} from '../../stores/advice'
 
 
 const store = useAdviceStore()
-const {sumLike} = store
+const {sumLike, restLike} = store
 
 const props = defineProps({
  adviceData: Object
@@ -19,6 +19,13 @@ const addLike = (idFragment) => {
 let AdviceId = idFragment.join("")
 
 sumLike(AdviceId)
+}
+
+const removeLike = (idFragment) => {
+
+let AdviceId = idFragment.join("")
+
+restLike(AdviceId)
 }
 
 

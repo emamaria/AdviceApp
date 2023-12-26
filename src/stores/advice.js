@@ -58,6 +58,13 @@ export const useAdviceStore = defineStore('advices', () => {
     
     allAdvice.value[adviceIndex].like += 1
   }
+
+  const restLike = (adviceId) => {
+
+    const adviceIndex = allAdvice.value.findIndex(advice => advice._id === adviceId)
+    
+    allAdvice.value[adviceIndex].like -= 1
+  }
  
   
   return { 
@@ -69,7 +76,8 @@ export const useAdviceStore = defineStore('advices', () => {
     setAdvice,
     editAdvice,
     resetUserAuthAdvice,
-    sumLike
+    sumLike,
+    restLike
   }
 })
 
