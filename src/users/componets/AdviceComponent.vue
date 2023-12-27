@@ -3,7 +3,8 @@
 
 const props = defineProps({
  adviceData: Object,
- addLikeReq: Function
+ addLikeReq: Function,
+ removeLikeReq: Function
 })
 
 
@@ -21,12 +22,12 @@ let AdviceId = idFragment.join("")
 //sumLike(AdviceId)
 }
 
-// const removeLike = (idFragment) => {
+const removeLike = async(idFragment) => {
 
-// let AdviceId = idFragment.join("")  
+let AdviceId = idFragment.join("")  
 
-//  restLike(AdviceId)
-// }
+ await props.removeLikeReq(AdviceId)
+}
 
 
 </script>

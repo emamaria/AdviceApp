@@ -13,7 +13,7 @@ let requestResponseOk = ref(false)
 let requestResponseFail = ref(false)
 
 
-const {addLikeReq} = useLikeReq(
+const {addLikeReq, removeLikeReq} = useLikeReq(
 
    loading, 
    requestFailMessage,
@@ -42,9 +42,9 @@ const props = defineProps({
    <div v-else-if="isError">{{error}}</div>
    <div v-else class="main_container">
       <div class="req_message" id="loading" v-if="loading">loading...</div>
-      <div class="req_message" id="responseOk" v-if="requestResponseOk">Added like!👍</div>
+      <div class="req_message" id="responseOk" v-if="requestResponseOk">Ok!👍</div>
       <div class="req_message" id="responseFail" v-if="requestResponseFail">{{ requestFailMessage }}</div>
-      <AdviceComponent :adviceData="adviceData" :addLikeReq="addLikeReq"/>
+      <AdviceComponent :adviceData="adviceData" :addLikeReq="addLikeReq"  :removeLikeReq="removeLikeReq"/>
      
    </div>
 
