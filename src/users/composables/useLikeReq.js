@@ -25,7 +25,9 @@ const options = {
     
     const {sumLike, restLike} = adviceStore
 
-     const addLikeReq = async(id) => {
+     const addLikeReq = async(adviceId, user) => {
+
+      if(userData.uid === user) return
 
         loading.value = true
         const userId = {
@@ -35,13 +37,13 @@ const options = {
        
         try {
 
-            const {data} = await userApi.patch(`/like/${id}`, userId, options)
+            const {data} = await userApi.patch(`/like/${adviceId}`, userId, options)
               
             loading.value = false
      
             requestResponseOk.value = true
   
-            sumLike(id)
+            sumLike(adviceId)
             console.log(data)
 
             setTimeout(()=> {
@@ -67,8 +69,10 @@ const options = {
      }
 
 
-     const removeLikeReq = async(id) => {
+     const removeLikeReq = async(adviceId, user) => {
 
+      if(userData.uid === user) return
+      
       loading.value = true
       const userId = {
          removelikeUsersId: userData.uid
@@ -77,13 +81,13 @@ const options = {
      
       try {
 
-          const {data} = await userApi.patch(`/removelike/${id}`, userId, options)
+          const {data} = await userApi.patch(`/removelike/${adviceId}`, userId, options)
             
           loading.value = false
    
           requestResponseOk.value = true
 
-          restLike(id)
+          restLike(adviceId)
           console.log(data)
 
           setTimeout(()=> {

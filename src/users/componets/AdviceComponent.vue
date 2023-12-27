@@ -10,23 +10,25 @@ const props = defineProps({
 
 
 
-const addLike = async(idFragment) => {
+const addLike = async(adviceIdFragment, userIdFragment) => {
 
   
 //al ser el id del advice readonly tomo una copia fragmentada en 
 //formato array y recompongo como string
 
-let AdviceId = idFragment.join("")
+let AdviceId = adviceIdFragment.join("")
+let userId = userIdFragment.join("")
 
- await props.addLikeReq(AdviceId)
+ await props.addLikeReq(AdviceId, userId)
 //sumLike(AdviceId)
 }
 
-const removeLike = async(idFragment) => {
+const removeLike = async(adviceIdFragment, userIdFragment) => {
 
-let AdviceId = idFragment.join("")  
+let AdviceId = adviceIdFragment.join("")
+let userId = userIdFragment.join("")  
 
- await props.removeLikeReq(AdviceId)
+ await props.removeLikeReq(AdviceId, userId)
 }
 
 
@@ -42,8 +44,8 @@ let AdviceId = idFragment.join("")
          <main class="user_advice_main">
          <p>{{ advice.advice }}</p>
          <p>{{ advice.like }}</p>
-         <button @click="addLike([...advice._id])">Add Like</button>
-         <button @click="removeLike([...advice._id])">Remove Like</button>
+         <button @click="addLike([...advice._id], [...advice.userId._id] )">Add Like</button>
+         <button @click="removeLike([...advice._id], [...advice.userId._id])">Remove Like</button>
          </main>
         
         
