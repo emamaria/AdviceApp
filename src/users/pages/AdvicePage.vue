@@ -1,13 +1,25 @@
 
 <script setup>
-import { computed} from 'vue';
+import { computed, ref } from 'vue';
 import useUsersAdvice from '../composables/useUsersAdvice.js' 
 import AdviceComponent from '../componets/AdviceComponent.vue';
-
+import useLikeReq from '../composables/useLikeReq'
 
 const {allAdvice, isLoading, isError, error} = useUsersAdvice()
 
+let loading = ref(false)
+let requestFailMessage = ref("")
+let requestResponseOk = ref(false)
+let requestResponseFail = ref(false)
 
+
+const {addLikeReq} = useLikeReq(
+
+   loading, 
+   requestFailMessage,
+   requestResponseOk,
+   requestResponseFail
+)
 
 const props = defineProps({
    searchAdvise: String
@@ -29,7 +41,10 @@ const props = defineProps({
    <div v-if="isLoading">Loading</div>
    <div v-else-if="isError">{{error}}</div>
    <div v-else class="main_container">
-      <AdviceComponent :adviceData="adviceData"/>
+      <div class="req_message" id="loading" v-if="loading">loading...</div>
+      <div class="req_message" id="responseOk" v-if="requestResponseOk">Added like!👍</div>
+      <div class="req_message" id="responseFail" v-if="requestResponseFail">{{ requestFailMessage }}</div>
+      <AdviceComponent :adviceData="adviceData" :addLikeReq="addLikeReq"/>
      
    </div>
 
@@ -38,7 +53,25 @@ const props = defineProps({
 
 <style scoped>
 
-   
+.req_message{
+   font-size: 5rem;
+   position: absolute;
+
+}
+
+.req_message#loading{
+   top: 20px;
+}
+.req_message#responseOk{
+   top: 50px;
+}
+
+.req_message#responseFail{
+   top: 80px;
+}
+
+
+
 
  
    .main_container{

@@ -1,37 +1,39 @@
 <script setup>
 
-import {useAdviceStore} from '../../stores/advice'
-
-
-
-const store = useAdviceStore()
-const {sumLike, restLike} = store
 
 const props = defineProps({
- adviceData: Object
+ adviceData: Object,
+ addLikeReq: Function
 })
 
-const addLike = (idFragment) => {
 
+
+
+const addLike = async(idFragment) => {
+
+  
 //al ser el id del advice readonly tomo una copia fragmentada en 
 //formato array y recompongo como string
 
 let AdviceId = idFragment.join("")
 
-sumLike(AdviceId)
+ await props.addLikeReq(AdviceId)
+//sumLike(AdviceId)
 }
 
-const removeLike = (idFragment) => {
+// const removeLike = (idFragment) => {
 
-let AdviceId = idFragment.join("")
+// let AdviceId = idFragment.join("")  
 
-restLike(AdviceId)
-}
+//  restLike(AdviceId)
+// }
 
 
 </script>
 
 <template>
+   
+  
 <article class="user_advice_container" v-for="advice of props.adviceData" :key="advice._id">
          <header class="user_advice_header">
             <h3>{{ advice.userId.name }}</h3><img :src="advice.img" :alt="advice.img">
@@ -43,10 +45,12 @@ restLike(AdviceId)
          <button @click="removeLike([...advice._id])">Remove Like</button>
          </main>
         
+        
 </article>
 </template>
 
 <style scoped>
+
 
 .user_advice_container{
       background-color: white;

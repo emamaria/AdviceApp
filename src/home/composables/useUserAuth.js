@@ -27,9 +27,15 @@ const useUserAuth = () => {
             authStatus.value = "loading"
             const {data} = await userApi.post('/users', {name, email, password})
             
-            console.log(data)
+            console.log(data, "dato de usuario registrado")
 
-            userData.value = {...data.user}
+            userData.value = {
+                createdAt: data.user.createdAt,
+                email: data.user.email,
+                name: data.user.name,
+                uid: data.user.uid,
+                updatedAt: data.user.updatedAt
+            }
 
             console.log(userData.value)
 
@@ -75,9 +81,15 @@ const useUserAuth = () => {
 
         const {data} = await userApi.post('/auth/login', {email, password})
 
-        console.log(data)
+        console.log(data, "dato de usuario logeado")
 
-        userData.value = {...data.userDB}
+        userData.value = {
+            createdAt: data.userDB.createdAt,
+            email: data.userDB.email,
+            name: data.userDB.name,
+            uid: data.userDB.uid,
+            updatedAt: data.userDB.updatedAt
+        }
 
         localStorage.setItem('token', data.token)
 
