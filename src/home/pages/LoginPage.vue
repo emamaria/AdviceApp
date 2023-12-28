@@ -49,16 +49,19 @@ const submitLoginData = async() => {
 
     errorMessage.value =  await login(form.value.email, form.value.password)
 
-    setTimeout(()=>{
-    errorMessage.value = ""
-
-    }, 10000) 
 
     setTimeout(()=>{
-    form.value = {
-    email: "",
-    password: ""
-     }
+
+    if(errorMessage.value?.toLowerCase().includes("password")){
+        errorMessage.value = ""
+        form.value.password = ""
+    }
+
+    if(errorMessage.value?.toLowerCase().includes("email")){
+        errorMessage.value = ""
+        form.value.email = ""
+    }
+    
     }, 3000)
    
     if(authStatus.value === 'ok-auth'){
