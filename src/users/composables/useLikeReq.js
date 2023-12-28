@@ -10,10 +10,9 @@ const options = {
 
 
   const useLikeReq = ( 
-    requestResponseFail,
-    requestFailMessage,
-    requestResponseOk,
-    loading
+   showReqMessage,
+   requestResponseMsg
+  
     ) => {
 
     const {userData} = useUserStore()
@@ -29,7 +28,6 @@ const options = {
 
       if(userData.uid === user) return
 
-        loading.value = true
         const userId = {
             likedUsersId: userData.uid
         }
@@ -39,30 +37,30 @@ const options = {
 
             const {data} = await userApi.patch(`/like/${adviceId}`, userId, options)
               
-            loading.value = false
-     
-            requestResponseOk.value = true
+            showReqMessage(adviceId)
+            requestResponseMsg.value = "ok!"
   
             sumLike(adviceId)
             console.log(data)
 
             setTimeout(()=> {
-                requestResponseOk.value = false
+              
+               showReqMessage("")
+               requestResponseMsg.value = ""
+
                 }, 2000)
        
 
         } catch (error) {
-             requestResponseFail.value = true
-             loading.value = false
-             requestFailMessage.value = error.response.data.msg || "Try again"
+         showReqMessage(adviceId)
+         requestResponseMsg.value = error.response.data.msg || "Try again"
+           
               console.log(error)
               
-              
-             
-              console.log(requestFailMessage.value, "fail")
               setTimeout(()=> {
-               requestResponseFail.value = false
-               requestFailMessage.value = ""
+               showReqMessage("")
+               requestResponseMsg.value = ""
+              
             }, 5000)
         }
          
@@ -73,7 +71,7 @@ const options = {
 
       if(userData.uid === user) return
       
-      loading.value = true
+     
       const userId = {
          removelikeUsersId: userData.uid
       }
@@ -83,30 +81,30 @@ const options = {
 
           const {data} = await userApi.patch(`/removelike/${adviceId}`, userId, options)
             
-          loading.value = false
-   
-          requestResponseOk.value = true
+
+         showReqMessage(adviceId)
+         requestResponseMsg.value = "ok!"
 
           restLike(adviceId)
           console.log(data)
 
           setTimeout(()=> {
-              requestResponseOk.value = false
+            showReqMessage("")
+            requestResponseMsg.value = ""
+           
               }, 2000)
      
 
       } catch (error) {
-           requestResponseFail.value = true
-           loading.value = false
-           requestFailMessage.value = error.response.data.msg || "Try again"
+         
+         showReqMessage(adviceId)
+         requestResponseMsg.value = error.response.data.msg || "Try again"
             console.log(error)
             
-            
-           
-            console.log(requestFailMessage.value, "fail")
             setTimeout(()=> {
-             requestResponseFail.value = false
-             requestFailMessage.value = ""
+               showReqMessage("")
+               requestResponseMsg.value = ""
+            
           }, 5000)
       }
        

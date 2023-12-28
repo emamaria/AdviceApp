@@ -1,26 +1,52 @@
-<script setup>
 
+<script setup>
+import { ref } from 'vue';
+import useLikeReq from '../composables/useLikeReq'
 
 const props = defineProps({
  adviceData: Object,
- addLikeReq: Function,
- removeLikeReq: Function
+
 })
 
 
+let requestResponseMsg = ref("")
 
+let clickedId = ref("")
+
+//retorno true solo en el advice que he hecho click comparando  mirando si es de mismo id el advice
+//que hice click con ese advice y muestro mensaje
+const showReqMessage = (clickedAdviceId, thisAdviceIdFragment, ) => {
+
+   let thisAdviceId;
+    clickedId.value = clickedAdviceId 
+
+    if(thisAdviceIdFragment !== undefined){
+      thisAdviceId = thisAdviceIdFragment.join("")
+       
+      if(clickedId.value === thisAdviceId){
+      return true
+     }
+    }else{
+       return false
+     }
+}
+
+const {addLikeReq, removeLikeReq} = useLikeReq(
+   showReqMessage,
+   requestResponseMsg
+  
+)
 
 const addLike = async(adviceIdFragment, userIdFragment) => {
-
-  
+ 
 //al ser el id del advice readonly tomo una copia fragmentada en 
 //formato array y recompongo como string
 
 let AdviceId = adviceIdFragment.join("")
 let userId = userIdFragment.join("")
 
- await props.addLikeReq(AdviceId, userId)
-//sumLike(AdviceId)
+await addLikeReq(AdviceId, userId)
+
 }
 
 const removeLike = async(adviceIdFragment, userIdFragment) => {
@@ -28,7 +54,7 @@ const removeLike = async(adviceIdFragment, userIdFragment) => {
 let AdviceId = adviceIdFragment.join("")
 let userId = userIdFragment.join("")  
 
- await props.removeLikeReq(AdviceId, userId)
+ await removeLikeReq(AdviceId, userId)
 }
 
 
@@ -46,6 +72,7 @@ let userId = userIdFragment.join("")
          <p>{{ advice.like }}</p>
          <button @click="addLike([...advice._id], [...advice.userId._id] )">Add Like</button>
          <button @click="removeLike([...advice._id], [...advice.userId._id])">Remove Like</button>
+         <div v-if="showReqMessage(clickedId, thisId =[...advice._id])">{{ requestResponseMsg }}</div>        
          </main>
         
         
