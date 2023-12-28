@@ -83,21 +83,25 @@ const submitRegisterData = async() => {
     console.log(form.value)
 
 
-    errorMessage.value = await register(form.value.name, form.value.email, form.value.password1)
+    errorMessage.value = await register(form.value.name, form.value.email.toLowerCase(), form.value.password1)
 
+    
     setTimeout(()=>{
+
+if(errorMessage.value?.toLowerCase().includes("password")){
     errorMessage.value = ""
-
-    }, 10000) 
-
-    setTimeout(()=>{
-    form.value = {
-    email: "",
-    name: "",
-    password1: "",
-    password2: ""
+    form.value.password1 = ""
+    form.value.password2 = ""
 }
-    }, 3000)
+
+if(errorMessage.value?.toLowerCase().includes("email")){
+    errorMessage.value = ""
+    form.value.email = ""
+}
+
+}, 3000)
+
+
    
     if(authStatus.value === 'ok-auth'){
         changePage()

@@ -47,7 +47,7 @@ const submitLoginData = async() => {
     }
     console.log(form.value)
 
-    errorMessage.value =  await login(form.value.email, form.value.password)
+    errorMessage.value =  await login(form.value.email.toLowerCase(), form.value.password)
 
 
     setTimeout(()=>{
