@@ -16,9 +16,11 @@ export const useUserStore = defineStore('user', () => {
   userData.value = user
   authStatus.value =  auth
 
-  function editUserData(name, email) {
+  function editUserData(name = null, email = null) {
    if(email) userData.value.email = email
    if(name) userData.value.name  = name
+   localStorage.setItem('user', JSON.stringify(userData))
+   
   }
 
   // const resetUser = () => {
