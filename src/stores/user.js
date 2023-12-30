@@ -17,8 +17,8 @@ export const useUserStore = defineStore('user', () => {
   authStatus.value =  auth
 
   function editUserData(name, email) {
-    userData.value.email = name
-    userData.value.name  = email
+   if(email) userData.value.email = email
+   if(name) userData.value.name  = name
   }
 
   // const resetUser = () => {

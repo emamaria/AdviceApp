@@ -41,6 +41,7 @@ const cleanData = () => {
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:userData.uid}}">User</RouterLink>
+      <RouterLink :to="{name: 'personal', params: {id:userData.uid}}">Personal</RouterLink>
       <button @click="cleanData">Logout</button>
       </nav>
    </header>
