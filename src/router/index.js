@@ -58,6 +58,11 @@ const router = createRouter({
           path: `/users/advice/:id`,
           name: 'user',
           component: () => import('../users/pages/UserPage.vue') 
+        },
+        {
+          path: `/users/personal/:id`,
+          name: 'personal',
+          component: () => import('../users/pages/PersonalPage.vue') 
         }
       ]
       // route level code-splitting
