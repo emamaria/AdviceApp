@@ -23,7 +23,7 @@ const getAuthUserAdvice = async(adviceId) => {
 
 const useUserAdvice = () => {
 
-    const authUserAdviceId = allAdvice.value.filter(advice => advice.userId?._id === userId)[0]?._id
+    const authUserAdviceId = userAuthAdvice.value._id || allAdvice.value.filter(advice => advice.userId?._id === userId)[0]?._id
 
   console.log(authUserAdviceId, "id del advice de usuario registrado")
 
