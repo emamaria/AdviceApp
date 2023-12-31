@@ -19,7 +19,7 @@ export const useUserStore = defineStore('user', () => {
   function editUserData(name = null, email = null) {
    if(email) userData.value.email = email
    if(name) userData.value.name  = name
-   localStorage.setItem('user', JSON.stringify(userData))
+   localStorage.setItem('user', JSON.stringify(userData.value))
    
   }
 

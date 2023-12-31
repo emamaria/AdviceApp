@@ -40,7 +40,7 @@ const usePersonalReq = () => {
      
             //  requestResponseOk.value = true
             editUserData(data.user.name, data.user.email)
-            // localStorage.setItem('token', data.token)
+            localStorage.setItem('token', data.token)
              console.log(data)
             
              setTimeout(()=> {
