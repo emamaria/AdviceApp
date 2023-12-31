@@ -3,10 +3,11 @@ import usePersonalReq from '../composables/usePersonalReq';
 import { ref } from 'vue';
 
 
+const isLoading = ref(false)
+const isReqResponse = ref(false)
+const reqResponseMessage = ref("")
 
- const {showUserData, updateUser} = usePersonalReq()
-
-
+const {showUserData, updateUser} = usePersonalReq(isLoading, isReqResponse, reqResponseMessage)
 
  const form =  ref({
     email: "",
@@ -27,7 +28,12 @@ const updatingPersData = async() => {
  
    
    const result = await updateUser(form.value.name, form.value.email, form.value.password1)
-   console.log(result)
+   console.log(result, "resultado")
+   form.value.email =  "",
+   form.value.name = "",
+   form.value.password1 = "",
+   form.value.password2 = ""
+
 }
  console.log(showUserData)
 </script>
@@ -44,6 +50,8 @@ const updatingPersData = async() => {
        <input type="password" v-model="form.password1" placeholder="password">
        <input type="password" v-model="form.password2" placeholder="password">
        <input type="submit" value="submit">
+       <small v-if="isLoading">loading...</small>
+       <small v-if="isReqResponse">{{ reqResponseMessage }}</small>
        </form>
     </main>
 </div>
