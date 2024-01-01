@@ -129,8 +129,8 @@ watch(userAuthAdvice, () => {
          
          </div>    
          <small v-if="requestResponseFail">{{ requestFailMessage }}</small>
-         <small v-if="requestResponseOk">Success!👍</small>
-         <small v-if="loading">loading...</small>
+         <small v-if="requestResponseOk"><i class="fa-solid fa-circle-check fa-fade"></i></small>
+         <small v-if="loading"><i class="fa-solid fa-spinner fa-spin"></i></small>
          <div class="advice_container_footer">
          
            
@@ -151,6 +151,8 @@ watch(userAuthAdvice, () => {
 small{
    margin-left: auto;
    margin-right: auto;
+   font-size: 1.5rem;
+   color: #372e35;
 }
 .user_advice_form{
     display: flex;
