@@ -118,7 +118,7 @@ watch(userAuthAdvice, () => {
    
       <form  v-else @submit.prevent="submit" class="user_advice_form">
          <div class="user_advice_header">
-         <h3>{{ userData.name }}</h3>
+         <h3>{{ userData.name[0].toUpperCase() + userData.name.slice(1) }}</h3>
          <div class="img_elements_container">
          <img :src="userImage" :alt="userImage">
          <button type="button" @click.stop="triggerClickImg(imgInput)" value="imgEvent">Select Image</button>
@@ -127,14 +127,17 @@ watch(userAuthAdvice, () => {
          <div class="user_advice_main">
          <textarea :required="false" type="text" v-model="userAdviceText" placeholder="write your advice" class="user_text" rows="4" cols="50"></textarea>
          
-         </div>
+         </div>    
+         <small v-if="requestResponseFail">{{ requestFailMessage }}</small>
+         <small v-if="requestResponseOk">Success!👍</small>
+         <small v-if="loading">loading...</small>
          <div class="advice_container_footer">
          
+           
+            <div class="button_container">
             <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="create"> Create </button>
-            <small v-if="requestResponseFail">{{ requestFailMessage }}</small>
-            <small v-if="requestResponseOk">Success!👍</small>
-            <small v-if="loading">loading...</small>
             <button type="submit" :class='(blockedCursor)?"block_cursor": ""' @click=clickedButtonValue value="delete"> Delete </button>
+            </div>
             <input @change="editImage" type="file" name="avatar" id="avatar" ref="imgInput">
             
          </div>
@@ -145,7 +148,10 @@ watch(userAuthAdvice, () => {
 
 <style scoped>
 
-
+small{
+   margin-left: auto;
+   margin-right: auto;
+}
 .user_advice_form{
     display: flex;
     flex-direction: column;
@@ -153,7 +159,7 @@ watch(userAuthAdvice, () => {
     width: 50%;
     margin-left: auto;
     margin-right: auto;
-    height: 400px;
+    height: 500px;
     border-radius: 10px;
     background-color: white;
     padding: 15px;
@@ -170,11 +176,12 @@ watch(userAuthAdvice, () => {
       margin: auto;
       padding: 5px;
       font-size: 3rem;
-      color: #6e5064;
+      color: #372e35;
    }
    
    .img_elements_container{
     position: relative;
+    margin: auto;
    }
 
    .img_elements_container button{
@@ -189,11 +196,13 @@ watch(userAuthAdvice, () => {
     border-radius: 20px;
    }
 
+ 
+
    img{
       margin: 10px;
-      width: 300px;
-      height: 100px;
+      height: 120px;
       background-color: #6e5064;
+      width: 220px;
    }
 
 
@@ -231,29 +240,57 @@ h3{
    font-size: 1.5rem;
 }
 
-
-
-
- 
- 
-
-
-   .user_advice_main p{
+.user_advice_main p{
       background-color: aqua;
-   }
+}
 
-   .advice_container_footer{
+.advice_container_footer{
+     
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
       padding: 10px;
-   }
+   
+}
 
-   .advice_container_footer button{
+
+.button_container{
+   padding: 10px;
+   margin-top: 20px;
+   display: flex;
+   justify-content: space-around;
+   flex-direction: row;
+
+}
+.button_container button{
       padding: 10px;
       background-color: #6e5064;
       border: none;
       border-radius: 50px;
       color: #d7cebb;
+      width: 180px;
+      margin: 10px;
+      font-size: 1.1rem;
+}
+
+@media screen and (max-width:600px){
+ 
+   .user_advice_form{
+      width: 95%;
    }
+  
+   .button_container{
+   margin: auto;
+   flex-direction: column;
+  
+}
+.button_container button{
+  margin-top: 20px;
+   
+}
+
+.user_advice_form{
+   height: 600px;
+}
+}
+
 </style>
