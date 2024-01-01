@@ -71,7 +71,7 @@ input{
   .container{
     background-color: #6e5064;
     min-height: 100vh;
-   
+    margin-bottom: 100px;
  }
 
  nav {
