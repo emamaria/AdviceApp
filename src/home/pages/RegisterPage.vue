@@ -125,7 +125,8 @@ if(errorMessage.value?.toLowerCase().includes("email")){
        <input type="password" v-model="form.password2" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
        <small v-if="errorMessage">{{errorMessage}}</small>
-       <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register"><span v-if="authStatus === 'loading'">...loading</span>
+       <small v-if="authStatus === 'loading'"><i class="fa-solid fa-spinner fa-spin"></i></small>
+       <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register">
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
        </form>
 </template>

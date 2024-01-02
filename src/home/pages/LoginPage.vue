@@ -83,7 +83,8 @@ const submitLoginData = async() => {
        <input type="password" v-model="form.password" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
        <small v-if="errorMessage">{{errorMessage}}</small>
-       <input id="button"  @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Login"><span v-if="authStatus === 'loading'">...loading</span>
+       <small v-if="authStatus === 'loading'"><i class="fa-solid fa-spinner fa-spin"></i></small>
+       <input id="button"  @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Login">
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>
 

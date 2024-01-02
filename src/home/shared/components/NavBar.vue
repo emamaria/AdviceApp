@@ -11,7 +11,7 @@ const props = defineProps({
 
 
 <template>
-<h1>AdviseApp</h1>
+<h1>AdviceApp</h1>
 <nav>
 <RouterLink :key="link.name" v-for="link of props.links" :to="{name:link.name}">{{ link.title }}</RouterLink>
 </nav>
