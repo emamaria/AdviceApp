@@ -113,7 +113,7 @@ watch(userAuthAdvice, () => {
 
 <template>
 
-   <div v-if="isLoading">Loading</div>
+   <div v-if="isLoading" class="top_loading"><i class="fa-solid fa-spinner fa-spin"></i></div>
 
    
       <form  v-else @submit.prevent="submit" class="user_advice_form">
@@ -147,6 +147,15 @@ watch(userAuthAdvice, () => {
 
 
 <style scoped>
+
+.top_loading{
+   position: absolute;
+   font-size: 3rem;
+   top: 50%;
+   left: 50%;
+   color: #d7cebb;
+}
+
 
 small{
    margin-left: auto;

@@ -21,7 +21,7 @@ const props = defineProps({
 
 
 <template>
-   <div v-if="isLoading">Loading</div>
+   <div class="top_loading" v-if="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></div>
    <div v-else-if="isError">{{error}}</div>
    <div v-else class="main_container">
       <AdviceComponent :adviceData="adviceData" />
@@ -31,6 +31,14 @@ const props = defineProps({
 
 
 <style scoped>
+
+.top_loading{
+   position: absolute;
+   font-size: 3rem;
+   top: 50%;
+   left: 50%;
+   color: #d7cebb;
+}
 
 .req_message{
    font-size: 5rem;

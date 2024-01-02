@@ -99,7 +99,7 @@ if(errorMessage.value?.toLowerCase().includes("email")){
     form.value.email = ""
 }
 
-}, 3000)
+}, 6000)
 
 
    
@@ -136,7 +136,9 @@ if(errorMessage.value?.toLowerCase().includes("email")){
 
 
 small{
-  color: #6e5064;
+  color: #650445;
+  font-weight: bold;
+  text-align: center;
 }
 
 h3{
@@ -149,7 +151,7 @@ form{
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
     height: 400px;
     background-color: white;
     border-radius: 10px;
@@ -177,6 +179,12 @@ input{
     padding: 9px;
     border-radius: 3px;
     width: 100px;
+}
+
+@media screen and (max-width:600px){
+  form{
+    width: 95%;
+  }
 }
 
 </style>

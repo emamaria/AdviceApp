@@ -62,7 +62,7 @@ const submitLoginData = async() => {
         form.value.email = ""
     }
     
-    }, 3000)
+    }, 6000)
    
     if(authStatus.value === 'ok-auth'){
         changePage()
@@ -96,7 +96,9 @@ const submitLoginData = async() => {
 <style scoped>
 
 small{
-  color: #6e5064;
+  color: #650445;
+  font-weight: bold;
+  text-align: center;
 }
 
 
@@ -116,7 +118,7 @@ form{
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 350px;
+    max-width: 380px;
     height: 400px;
     background-color: white;
     border-radius: 10px;
@@ -140,4 +142,12 @@ input{
     border-radius: 3px;
     width: 100px;
 }
+
+@media screen and (max-width:600px){
+  form{
+    width: 95%;
+  }
+}
+
+
 </style>
