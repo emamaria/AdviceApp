@@ -33,7 +33,7 @@ h1{
 nav {
   width: 100%;
  display: flex;
- justify-content:flex-end ;
+ justify-content:flex-end;
  background-color: #6e5064;
  padding-right: 30px;
 }
@@ -56,5 +56,27 @@ nav a:hover{
 
 nav a:first-of-type {
   border: 0;
+}
+
+@media screen and (max-width:700px){
+   
+ h1{
+ 
+ display: none;
+}
+}
+
+
+@media screen and (max-width:600px){
+  nav{
+    padding: 0;
+    justify-content: center;
+  }
+
+  nav a {
+   margin: 15px;
+   font-size: 1.2rem;
+}
+
 }
 </style>

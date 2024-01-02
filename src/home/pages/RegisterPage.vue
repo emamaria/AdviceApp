@@ -129,10 +129,20 @@ if(errorMessage.value?.toLowerCase().includes("email")){
        <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register">
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>
        </form>
+       <h1>AdviceApp</h1>
 </template>
 
 
 <style scoped>
+
+h1{
+  
+  color:#d7cebb;
+  font-size: 1.5rem;
+  display: none;
+  margin-top: 30px;
+  text-align: center;
+}
 
 
 small{
@@ -179,6 +189,15 @@ input{
     padding: 9px;
     border-radius: 3px;
     width: 100px;
+}
+
+@media screen and (max-width:700px){
+ 
+ h1{
+   display: block;
+   font-size: 1.2rem;
+ }
+
 }
 
 @media screen and (max-width:600px){

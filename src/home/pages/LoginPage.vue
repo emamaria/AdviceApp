@@ -88,12 +88,22 @@ const submitLoginData = async() => {
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
     </form>
 
-    
+    <h1>AdviceApp</h1>
   
 </template>
 
 
 <style scoped>
+
+h1{
+  
+  color:#d7cebb;
+  font-size: 1.5rem;
+  display: none;
+  margin-top: 30px;
+  text-align: center;
+}
+
 
 small{
   color: #650445;
@@ -149,5 +159,13 @@ input{
   }
 }
 
+@media screen and (max-width:700px){
+ 
+ h1{
+   display: block;
+   font-size: 1.2rem;
+ }
+
+}
 
 </style>
