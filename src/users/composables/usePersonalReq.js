@@ -8,7 +8,7 @@ const options = {
   };
 
 
-const usePersonalReq = (isLoading,  isReqResponse, reqResponseMessage) => {
+const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqResponseMessage) => {
 
     const userStore = useUserStore()
 
@@ -38,16 +38,16 @@ const usePersonalReq = (isLoading,  isReqResponse, reqResponseMessage) => {
              
             isLoading.value = false
      
-            isReqResponse.value = true
-            reqResponseMessage.value = "ok!"
+            isReqResponseOk.value = true
+          
 
             editUserData(data.user.name, data.user.email)
             localStorage.setItem('token', data.token)
              console.log(data)
             
              setTimeout(()=> {
-              isReqResponse.value = false
-              reqResponseMessage.value = ""
+              isReqResponseOk.value = false
+           
              }, 3000)
      
              
@@ -59,10 +59,10 @@ const usePersonalReq = (isLoading,  isReqResponse, reqResponseMessage) => {
             console.log(error, "mensaje de error")
 
             isLoading.value = false
-            isReqResponse.value = true
+            isReqResponseFail.value = true
             reqResponseMessage.value = error.response?.data?.errors?.password?.msg || "Try again"
                 setTimeout(()=> {
-                  isReqResponse.value = false
+                  isReqResponseFail.value = false
                   reqResponseMessage.value = ""
                 
               }, 5000)

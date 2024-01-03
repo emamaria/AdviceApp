@@ -122,7 +122,7 @@ if(errorMessage.value?.toLowerCase().includes("email")){
         
        <input type="password" v-model="form.password1" placeholder="password">
        <small class="errorMessage" v-if="passwordInValid">{{passwordValidationMessage}}</small>
-       <input type="password" v-model="form.password2" placeholder="password">
+       <input type="password" v-model="form.password2" placeholder="confirm password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
        <small v-if="errorMessage">{{errorMessage}}</small>
        <small v-if="authStatus === 'loading'"><i class="fa-solid fa-spinner fa-spin"></i></small>

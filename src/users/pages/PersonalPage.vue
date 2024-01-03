@@ -4,7 +4,8 @@ import { ref, computed } from 'vue';
 
 
 const isLoading = ref(false)
-const isReqResponse = ref(false)
+const isReqResponseOk = ref(false)
+const isReqResponseFail = ref(false)
 const reqResponseMessage = ref("")
 
 const passwordInValid = computed( () => {
@@ -18,7 +19,7 @@ const passwordInValid = computed( () => {
     return false
 })
 
-const {showUserData, updateUser} = usePersonalReq(isLoading, isReqResponse, reqResponseMessage)
+const {showUserData, updateUser} = usePersonalReq(isLoading, isReqResponseOk, isReqResponseFail,reqResponseMessage)
 
  const form =  ref({
     email: "",
@@ -53,26 +54,93 @@ const updatingPersData = async() => {
  console.log(showUserData)
 </script>
 <template>
-    <div>
+    <div class="container">
+        <h2>Change My Login Data</h2>
     <header>
+
         <h3>My Name: {{ showUserData.name }}</h3>
         <h3>My Email: {{ showUserData.email }}</h3>
+        <h3>My Password: **********</h3>
     </header>
     <main>
+        
        <form @submit.prevent="updatingPersData">
-       <input type="text" v-model="form.name" placeholder="name">
-       <input type="email" v-model="form.email" placeholder="email">
-       <input type="password" v-model="form.password1" placeholder="password">
-       <input type="password" v-model="form.password2" placeholder="password">
-       <small v-if="passwordInValid">passwords don´t match</small>
-       <input type="submit" value="submit">
-       <small v-if="isLoading">loading...</small>
-       <small v-if="isReqResponse">{{ reqResponseMessage }}</small>
+       <h4>Fill Only the data that you want to change</h4>
+       <input type="text" v-model="form.name" placeholder="new name">
+       <input type="email" v-model="form.email" placeholder="new email">
+       <input type="password" v-model="form.password1" placeholder="new password">
+       <input type="password" v-model="form.password2" placeholder="confirm new password">
+       <small v-if="passwordInValid">Passwords don´t match</small>
+       <small v-if="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></small>
+       <small v-if="isReqResponseFail">{{reqResponseMessage}}</small>
+       <small v-if="isReqResponseOk"><i class="fa-solid fa-circle-check fa-fade"></i></small>
+       <input type="submit" value="submit" id="submit">
        </form>
     </main>
 </div>
 </template>
 <style scoped>
 
+small{
+    font-size: 1.2rem;
+   
+}
 
+#submit{
+    margin-top: 20px;
+    background-color:#6e5064;
+    border: none;
+    font-size: 1.1rem;
+    color: #d7cebb;
+    border-radius: 5px;
+}
+
+h2{
+    color: white;
+    margin-top: 100px;
+    font-size: 2rem;
+}
+
+h3{
+    margin: 5px;
+    color: #d7cebb;
+}
+
+h4{
+    font-size: 1.1rem;
+    color: #372e35;
+}
+
+header{
+    margin-top: 50px;
+    font-size: 1.2rem;
+}
+
+main{
+    margin-top: 50px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    width: 380px;
+    height: 380px;
+    border-radius: 10px;
+}
+
+form input{
+    margin: 10px;
+    padding: 8px;
+    width: 90%;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
 </style>
