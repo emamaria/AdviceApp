@@ -104,11 +104,13 @@ h2{
 h3{
     margin: 5px;
     color: #d7cebb;
+    font-size: 1.5rem;
 }
 
 h4{
     font-size: 1.1rem;
     color: #372e35;
+    text-align: center;
 }
 
 header{
@@ -118,6 +120,9 @@ header{
 
 main{
     margin-top: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 form{
@@ -142,5 +147,24 @@ form input{
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    
+}
+
+@media screen and (max-width:400px){
+    form{
+        width: 95%;
+    }
+
+    h2{
+        font-size: 1.5rem;
+    }
+
+    h3{
+        font-size: 1.2rem;
+    }
+
+    h4{
+        font-size: 0.9rem;
+    }
 }
 </style>
