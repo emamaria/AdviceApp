@@ -57,10 +57,11 @@ const updatingPersData = async() => {
     <div class="container">
         <h2>Change My Login Data</h2>
     <header>
-
-        <h3>My Name: {{ showUserData.name }}</h3>
-        <h3>My Email: {{ showUserData.email }}</h3>
-        <h3>My Password: **********</h3>
+    <div class="data_container">
+        <h3>Name: {{ showUserData.name }}</h3>
+        <h3>Email: {{ showUserData.email }}</h3>
+        <h3>Password: **********</h3>
+    </div>
     </header>
     <main>
         
@@ -80,6 +81,12 @@ const updatingPersData = async() => {
 </div>
 </template>
 <style scoped>
+
+.data_container{
+    background-color: #ede0f3;
+    padding: 20px;
+    border-radius: 5px;
+}
 
 small{
     font-size: 1.2rem;
@@ -103,7 +110,7 @@ h2{
 
 h3{
     margin: 5px;
-    color: #d7cebb;
+    color: #372e35;
     font-size: 1.5rem;
 }
 
