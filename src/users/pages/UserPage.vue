@@ -221,6 +221,7 @@ small{
       height: 120px;
       background-color: #6e5064;
       width: 220px;
+      object-fit: cover;
    }
 
 

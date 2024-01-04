@@ -65,7 +65,7 @@ let userId = userIdFragment.join("")
   
 <article class="user_advice_container" v-for="advice of props.adviceData" :key="advice._id">
          <header class="user_advice_header">
-            <h3>{{ advice.userId.name[0].toUpperCase() + advice.userId.name.slice(1) }}</h3><img :src="advice.img" :alt="advice.img">
+            <h3>{{ advice.userId.name[0].toUpperCase() + advice.userId.name.slice(1) }}</h3><img :src="(!advice.img)?'/image/noimage.png':advice.img" alt="avatar">
          </header>
          <main class="user_advice_main">
          <div class="advice_container">
@@ -180,6 +180,7 @@ button{
       width: 130px;
       height: 70px;
       background-color: plum;
+      object-fit: cover;
    }
 
    .user_advice_main{
