@@ -72,10 +72,15 @@ let userId = userIdFragment.join("")
          <h5>{{ advice.advice }}</h5>
          </div>
          <div class="req_resp" v-if="showReqMessage(clickedId, thisId =[...advice._id])">{{ requestResponseMsg }}</div>    
-         <div class="like_container">   
-         <button @click="addLike([...advice._id], [...advice.userId._id] )">Add Like</button>
+         <div class="like_container">  
+         <div class="like">
+         <img  id="heart" src="/image/heart.png" alt="heart_icon">
          <p>{{ advice.like }}</p>
-         <button @click="removeLike([...advice._id], [...advice.userId._id])">Remove Like</button>
+         </div> 
+         <div class="like_buttons_container">
+         <button @click="removeLike([...advice._id], [...advice.userId._id])">- Like</button>
+         <button @click="addLike([...advice._id], [...advice.userId._id] )">+ Like</button> 
+         </div>
          </div> 
          </main>
         
@@ -85,12 +90,30 @@ let userId = userIdFragment.join("")
 
 <style scoped>
 
+.like_buttons_container{
+   display: flex;
+   flex-direction: row;
+}
+
+.like{
+   display: flex;
+   flex-direction: row;
+   width: 150px;
+   align-items: center;
+}
+
+#heart{
+   width: 20px;
+}
+
 p{
   color: #372e35;
+  font-size: 1.3rem;
+  margin-left: 10px;
 }
 
 .req_resp{
-   font-size: 1.2rem;
+   font-size: 1.1rem;
    color: #372e35;
 }
 
@@ -103,11 +126,13 @@ h5{
 }
 
 button{
-   width: 100px;
+   width: 50px;
    border: none;
    background-color: #6e5064;
    border-radius: 50px;
-   color:#d7cebb
+   color:#d7cebb;
+   padding: 5px;
+   margin: 3px;
 }
 
 .advice_container{
@@ -117,7 +142,7 @@ button{
    width: 100%;
    height: 100px;
    overflow-y: scroll;
-   background-color: rgb(242, 226, 246);
+   background-color: rgb(245, 243, 246);
 }
 
 .like_container{
@@ -165,5 +190,37 @@ button{
       height: 100vh;
    }
 
+   @media screen and (max-width:500px){
+      .user_advice_container{
+         width: 90%;
+         
+      } 
+
+      .req_resp{
+         font-size: 0.9rem;
+      }
+
+      .user_advice_header h3{
+        font-size: 1.5rem;
+      }
+
+      .user_advice_header img{
+         width: 120px;
+         height: 60px;
+      }
+
+      p{
+         font-size: 1.2rem;
+      }
+
+      .advice_container{
+         height: 110px;
+      }
+
+      h5{
+         font-size: 1.1rem;
+      }
+      
+   }
  
 </style>

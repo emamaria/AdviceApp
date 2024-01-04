@@ -19,7 +19,7 @@ let adviceData = computed(() => allAdvice.value.filter( data => data.advice.toLo
 <template>
    <div class="top_loading" v-if="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></div>
    <div v-else class="main_container">
-      <input v-model="searchAdvise" type="text"  placeholder="find advice type by word">
+      <input v-model="searchAdvise" type="text"  placeholder="find advice by it's containing word">
       <AdviceComponent :adviceData="adviceData" />
    </div>
 </template>
@@ -33,6 +33,8 @@ input{
    border: none;
    position: absolute;
    top: 8rem;
+   border-radius: 50px;
+   text-align: center;
 }
 
 .top_loading{
@@ -71,6 +73,14 @@ input{
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
+   }
+
+
+   @media screen and (max-width:500px){
+      input{
+         width: 250px;
+        
+      } 
    }
 
   
