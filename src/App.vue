@@ -50,7 +50,7 @@ header {
 }
 
 .container{
-  background-color: brown;
+  background-color:#6e5064;
   min-height: 100vh;
 }
 

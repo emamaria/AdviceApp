@@ -1,20 +1,16 @@
 
 <script setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import useUsersAdvice from '../composables/useUsersAdvice.js' 
 import AdviceComponent from '../componets/AdviceComponent.vue';
 
 
-const {allAdvice, isLoading, isError, error} = useUsersAdvice()
+const {allAdvice, isLoading} = useUsersAdvice()
 
+const searchAdvise = ref("")
 
-const props = defineProps({
-   searchAdvise: String
-})
+let adviceData = computed(() => allAdvice.value.filter( data => data.advice.toLowerCase().includes(searchAdvise.value.toLowerCase()) ))
 
-
-
- let adviceData = computed(() => allAdvice.value.filter( data => data.advice.toLowerCase().includes(props.searchAdvise.toLowerCase()) ))
 
  
 </script>
@@ -22,15 +18,22 @@ const props = defineProps({
 
 <template>
    <div class="top_loading" v-if="isLoading"><i class="fa-solid fa-spinner fa-spin"></i></div>
-   <div v-else-if="isError">{{error}}</div>
    <div v-else class="main_container">
+      <input v-model="searchAdvise" type="text"  placeholder="find advice type by word">
       <AdviceComponent :adviceData="adviceData" />
    </div>
-
 </template>
 
 
 <style scoped>
+
+input{
+   height: 35px;
+   width: 300px;
+   border: none;
+   position: absolute;
+   top: 8rem;
+}
 
 .top_loading{
    position: absolute;
@@ -63,7 +66,7 @@ const props = defineProps({
  
    .main_container{
       /* background-color:pink; */
-      margin-top: 5rem;
+      margin-top: 10rem;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;

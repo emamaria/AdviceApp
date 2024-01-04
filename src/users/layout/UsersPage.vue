@@ -1,33 +1,19 @@
 
 <script setup>
 
-import { useRoute, useRouter } from 'vue-router';
-import { computed, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
 import useUserAuth from '../../home/composables/useUserAuth';
 
 
 //añadido logout
- const {userData, logout} = useUserAuth()
-
-const route = useRoute()
+const {userData, logout} = useUserAuth()
 
 const router = useRouter()
-const currentPath = computed(() => route.name)
-console.log(currentPath.value)
-
-const searchAdvise = ref("")
-
-watch(searchAdvise, () => {
-  console.log(searchAdvise.value)
-})
 
 const cleanData = () => {
    logout()
    window.location.reload()
    router.push({name: 'home'})
-  
-
-  
 }
 
 </script>
@@ -35,19 +21,15 @@ const cleanData = () => {
 
 <template>
   <div class="container">
-   <header>
-   
-      <input v-model="searchAdvise" v-if="currentPath === 'users-advice'" type="text"  placeholder="find advice type by word">
+   <header>  
       <nav>
       <RouterLink :to="{name: 'users-advice'}">Advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:userData.uid}}">User</RouterLink>
       <RouterLink :to="{name: 'personal', params: {id:userData.uid}}">Personal</RouterLink>
       <button @click="cleanData">Logout</button>
       </nav>
-   </header>
-   
-
-<RouterView :searchAdvise="searchAdvise"/>
+   </header>  
+<RouterView/>
   </div>
    
 </template>
@@ -62,12 +44,7 @@ header{
    padding-top: 20px;
 }
 
-input{
-   height: 35px;
-   width: 300px;
-   margin-right: 100px;
-   border: none;
-}
+
   .container{
     background-color: #6e5064;
     min-height: 100vh;

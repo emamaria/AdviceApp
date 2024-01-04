@@ -112,9 +112,10 @@ watch(userAuthAdvice, () => {
 
 
 <template>
+   <h2>Create My Advice</h2>
 
    <div v-if="isLoading" class="top_loading"><i class="fa-solid fa-spinner fa-spin"></i></div>
-
+  
    
       <form  v-else @submit.prevent="submit" class="user_advice_form">
          <div class="user_advice_header">
@@ -148,6 +149,12 @@ watch(userAuthAdvice, () => {
 
 <style scoped>
 
+h2{
+    color: white;
+    margin-top: 100px;
+    font-size: 2rem;
+    text-align: center;
+}
 .top_loading{
    position: absolute;
    font-size: 3rem;
@@ -166,7 +173,7 @@ small{
 .user_advice_form{
     display: flex;
     flex-direction: column;
-    margin-top: 150px;
+    margin-top: 80px;
     width: 50%;
     margin-left: auto;
     margin-right: auto;
@@ -186,7 +193,7 @@ small{
    .user_advice_header h3{
       margin: auto;
       padding: 5px;
-      font-size: 3rem;
+      font-size: 2.7rem;
       color: #372e35;
    }
    
@@ -237,10 +244,7 @@ small{
 }
 
 
-h3{
-   margin-bottom: 20px;
-   font-size: 2rem;
-}
+
 
 .user_name{
    font-size: 2rem;
@@ -301,7 +305,16 @@ h3{
 
 .user_advice_form{
    height: 600px;
+   margin-top: 50px;
 }
+
+h2{
+   font-size: 1.5rem;
+   }
+
+   .user_advice_header h3{
+      font-size: 1.7rem;
+   }
 }
 
 </style>
