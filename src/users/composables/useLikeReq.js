@@ -61,7 +61,7 @@ const options = {
                showReqMessage("")
                requestResponseMsg.value = ""
               
-            }, 5000)
+            }, 3000)
         }
          
      }
@@ -105,7 +105,7 @@ const options = {
                showReqMessage("")
                requestResponseMsg.value = ""
             
-          }, 5000)
+          }, 3000)
       }
        
    }

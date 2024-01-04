@@ -63,7 +63,7 @@ export const useAdviceStore = defineStore('advices', () => {
 
     const adviceIndex = allAdvice.value.findIndex(advice => advice._id === adviceId)
     
-    allAdvice.value[adviceIndex].like -= 1
+   if(allAdvice.value[adviceIndex].like !== 0) allAdvice.value[adviceIndex].like -= 1
   }
  
   
