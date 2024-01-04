@@ -121,7 +121,7 @@ watch(userAuthAdvice, () => {
          <div class="user_advice_header">
          <h3>{{ userData.name[0].toUpperCase() + userData.name.slice(1) }}</h3>
          <div class="img_elements_container">
-         <img :src="userImage" :alt="userImage">
+         <img :src="(!userImage)?'/image/noimage.png':userImage" alt="avatar">
          <button type="button" @click.stop="triggerClickImg(imgInput)" value="imgEvent">Select Image</button>
          </div>
          </div>
