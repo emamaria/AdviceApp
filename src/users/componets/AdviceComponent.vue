@@ -13,6 +13,9 @@ let requestResponseMsg = ref("")
 
 let clickedId = ref("")
 
+const blockedCursor = ref(false)
+
+
 //retorno true solo en el advice que he hecho click comparando  mirando si es de mismo id el advice
 //que hice click con ese advice y muestro mensaje
 const showReqMessage = (clickedAdviceId, thisAdviceIdFragment, ) => {
@@ -33,7 +36,8 @@ const showReqMessage = (clickedAdviceId, thisAdviceIdFragment, ) => {
 
 const {addLikeReq, removeLikeReq} = useLikeReq(
    showReqMessage,
-   requestResponseMsg
+   requestResponseMsg,
+   blockedCursor
   
 )
 
@@ -78,8 +82,8 @@ let userId = userIdFragment.join("")
          <p>{{ advice.like }}</p>
          </div> 
          <div class="like_buttons_container">
-         <button @click="removeLike([...advice._id], [...advice.userId._id])">- Like</button>
-         <button @click="addLike([...advice._id], [...advice.userId._id] )">+ Like</button> 
+         <button @click="removeLike([...advice._id], [...advice.userId._id])" :class='(blockedCursor)?"block_cursor": ""'>- Like</button>
+         <button @click="addLike([...advice._id], [...advice.userId._id] )" :class='(blockedCursor)?"block_cursor": ""'>+ Like</button> 
          </div>
          </div> 
          </main>
@@ -89,6 +93,10 @@ let userId = userIdFragment.join("")
 </template>
 
 <style scoped>
+
+.block_cursor{
+   pointer-events: none
+}
 
 .like_buttons_container{
    display: flex;

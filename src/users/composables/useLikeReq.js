@@ -11,10 +11,12 @@ const options = {
 
   const useLikeReq = ( 
    showReqMessage,
-   requestResponseMsg
+   requestResponseMsg,
+   blockedCursor
   
     ) => {
 
+    
     const {userData} = useUserStore()
 
 
@@ -28,6 +30,8 @@ const options = {
 
       if(userData.uid === user) return
 
+      blockedCursor.value = true
+
         const userId = {
             likedUsersId: userData.uid
         }
@@ -38,7 +42,7 @@ const options = {
             const {data} = await userApi.patch(`/like/${adviceId}`, userId, options)
               
             showReqMessage(adviceId)
-            requestResponseMsg.value = "ok!"
+            requestResponseMsg.value = "Ok"
   
             sumLike(adviceId)
             console.log(data)
@@ -47,7 +51,7 @@ const options = {
               
                showReqMessage("")
                requestResponseMsg.value = ""
-
+               blockedCursor.value = false
                 }, 2000)
        
 
@@ -60,7 +64,7 @@ const options = {
               setTimeout(()=> {
                showReqMessage("")
                requestResponseMsg.value = ""
-              
+               blockedCursor.value = false
             }, 3000)
         }
          
@@ -71,6 +75,7 @@ const options = {
 
       if(userData.uid === user) return
       
+      blockedCursor.value = true
      
       const userId = {
          removelikeUsersId: userData.uid
@@ -83,7 +88,7 @@ const options = {
             
 
          showReqMessage(adviceId)
-         requestResponseMsg.value = "ok!"
+         requestResponseMsg.value = "Ok"
 
           restLike(adviceId)
           console.log(data)
@@ -91,7 +96,7 @@ const options = {
           setTimeout(()=> {
             showReqMessage("")
             requestResponseMsg.value = ""
-           
+            blockedCursor.value = false
               }, 2000)
      
 
@@ -104,6 +109,7 @@ const options = {
             setTimeout(()=> {
                showReqMessage("")
                requestResponseMsg.value = ""
+               blockedCursor.value = false
             
           }, 3000)
       }
