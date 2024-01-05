@@ -68,7 +68,7 @@ input{
  
    .main_container{
       /* background-color:pink; */
-      margin-top: 10rem;
+      margin-top: 200px;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
