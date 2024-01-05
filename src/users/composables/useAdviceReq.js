@@ -30,6 +30,7 @@ const useAdviceReq = (
 
     const postAdvice = async(postData, postImage) => {
         console.log(userData.uid, "uid usuario")
+        blockedCursor.value = true
            loading.value = true
            const newData = {
               advice: postData,
@@ -50,6 +51,8 @@ const useAdviceReq = (
               // queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
               setTimeout(()=> {
               requestResponseOk.value = false
+              blockedCursor.value = false
+
               }, 2000)
      
                return data
@@ -61,6 +64,8 @@ const useAdviceReq = (
                 setTimeout(()=> {
                  requestResponseFail.value = false
                  requestFailMessage.value = ""
+                 blockedCursor.value = false
+
               }, 2000)
      
               
@@ -69,6 +74,8 @@ const useAdviceReq = (
      
       const updateAdvice = async(updateData, updateImage) => {
 
+        blockedCursor.value = true
+       
         loading.value = true
      
         const newData = {
@@ -93,6 +100,8 @@ const useAdviceReq = (
              queryClient.invalidateQueries({queryKey: ['userAdvice',userAuthAdvice.value._id]})
              setTimeout(()=> {
               requestResponseOk.value = false
+               blockedCursor.value = false
+
              }, 2000)
      
              
@@ -107,6 +116,8 @@ const useAdviceReq = (
                 setTimeout(()=> {
                  requestResponseFail.value = false
                  requestFailMessage.value = ""
+                 blockedCursor.value = false
+
                 
               }, 2000)
                console.log(error)

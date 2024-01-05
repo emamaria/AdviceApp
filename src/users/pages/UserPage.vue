@@ -38,7 +38,6 @@ let clickedButton = ref("")
 
 const createAdvice = async() => {
 
-   blockedCursor.value = true
 
    if(userAuthAdvice?.value?._id === ""){
     
@@ -52,7 +51,6 @@ const createAdvice = async() => {
       console.log(updatedAdvice)
     }
    
-    blockedCursor.value = false 
    
 }
 
