@@ -7,14 +7,19 @@ import { ref } from 'vue';
 
 
 //añadido logout
-const {userData, logout} = useUserAuth()
+const {userData, logout, authStatus} = useUserAuth()
 
 const router = useRouter()
 
 const cleanData = () => {
    logout()
-   router.replace("/")
-   window.location.reload()
+
+   if(authStatus.value === "no-auth"){
+        router.push({name: 'login'})
+    }else{
+      router.push({name: 'home'})
+    }
+
 }
 
 const respMenu = ref(false)

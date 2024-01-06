@@ -145,12 +145,14 @@ const useUserAuth = () => {
 //añadido
     const logout = () => {
 
+
        localStorage.clear()
        userData.value = {}
        authStatus.value = "no-auth"
        allAdvice.value = []
        userAuthAdvice.value = {}
        
+     
     }
     
 return{
