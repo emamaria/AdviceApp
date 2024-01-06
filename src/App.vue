@@ -18,10 +18,10 @@ const changeRoute = () => {
 
 const checkToken = async() => {
  let result = await validateToken()
- console.log("validate token result", result)
+
 
 if(result === 'error'){
-  console.log("error")
+  
   changeRoute()
 }
 

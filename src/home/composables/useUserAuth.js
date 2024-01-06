@@ -127,7 +127,6 @@ const useUserAuth = () => {
         try {
             const {data} = await userApi.get('/auth/renew', options)
             localStorage.setItem('token', data.token)
-            console.log("token", data)
             userData.value.name = data.name
             userData.value.email = data.email
             userData.value.uid = data.uid
@@ -135,7 +134,6 @@ const useUserAuth = () => {
             
             
          } catch (error) {
-                console.log(error, "token error")
                 localStorage.clear()
                 userData.value = {}
                 authStatus.value = "no-auth"
