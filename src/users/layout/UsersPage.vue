@@ -14,7 +14,7 @@ const router = useRouter()
 const cleanData = () => {
    logout()
    window.location.reload()
-   router.push({name: 'home'})
+   router.push("/")
 }
 
 const respMenu = ref(false)
