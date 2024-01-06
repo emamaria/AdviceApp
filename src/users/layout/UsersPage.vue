@@ -59,6 +59,11 @@ const clickHamburguer = () => {
   display: none;
 }
 
+.hamburguer:hover{
+  cursor: pointer
+}
+
+
 h3{
   position: absolute;
   left: 25px;
@@ -92,6 +97,7 @@ button{
 
 button:hover{
   color: #d7cebb;
+  cursor: pointer;
 }
   .container{
     background-color: #6e5064;

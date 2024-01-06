@@ -143,6 +143,10 @@ button{
    margin: 3px;
 }
 
+button:hover{
+   cursor: pointer;
+}
+
 .advice_container{
    display: flex;
    justify-content: center;

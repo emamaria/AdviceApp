@@ -23,10 +23,6 @@ export const useUserStore = defineStore('user', () => {
    
   }
 
-  // const resetUser = () => {
-  //   userData.value = {}
-  //   authStatus.value = 'no-auth'
-  // }
 
   return { showUserData, editUserData, userData, authStatus}
 })

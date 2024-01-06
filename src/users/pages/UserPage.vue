@@ -242,7 +242,9 @@ small{
    pointer-events: none
 }
 
-
+button:hover{
+   cursor: pointer;
+}
 
 
 .user_name{

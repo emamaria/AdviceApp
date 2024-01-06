@@ -102,6 +102,10 @@ small{
     border-radius: 5px;
 }
 
+#submit:hover{
+    cursor: pointer;
+}
+
 h2{
     color: white;
     margin-top: 100px;
