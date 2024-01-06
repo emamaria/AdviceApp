@@ -26,8 +26,6 @@ const useUserAuth = () => {
 
             authStatus.value = "loading"
             const {data} = await userApi.post('/users', {name, email, password})
-            
-            console.log(data, "dato de usuario registrado")
 
             userData.value = {
                 createdAt: data.user.createdAt,
@@ -37,7 +35,6 @@ const useUserAuth = () => {
                 updatedAt: data.user.updatedAt
             }
 
-            console.log(userData.value)
 
             localStorage.setItem('token', data.token)
 
@@ -81,7 +78,6 @@ const useUserAuth = () => {
 
         const {data} = await userApi.post('/auth/login', {email, password})
 
-        console.log(data, "dato de usuario logeado")
 
         userData.value = {
             createdAt: data.userDB.createdAt,
@@ -136,10 +132,9 @@ const useUserAuth = () => {
             userData.value.email = data.email
             userData.value.uid = data.uid
             localStorage.setItem('user', JSON.stringify({...userData.value}))
-            // authStatus.value = 'ok-auth'
             
-            console.log("token",data)
-        } catch (error) {
+            
+         } catch (error) {
             console.log(error)
            
                 
@@ -153,10 +148,6 @@ const useUserAuth = () => {
 //añadido
     const logout = () => {
 
-        //añadido useAdviceStore()
-  
-   
-       console.log("logout")
        localStorage.clear()
        userData.value = {}
        authStatus.value = "no-auth"

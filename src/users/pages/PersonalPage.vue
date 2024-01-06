@@ -39,19 +39,15 @@ const updatingPersData = async() => {
         return
     }
 
-    console.log(form.value.name, form.value.email, form.value.password1)
-
- 
-   
+    
    const result = await updateUser(form.value.name, form.value.email, form.value.password1)
    console.log(result, "resultado")
    form.value.email =  "",
    form.value.name = "",
    form.value.password1 = "",
    form.value.password2 = ""
-
 }
- console.log(showUserData)
+ 
 </script>
 <template>
     <div class="container">

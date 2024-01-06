@@ -25,7 +25,6 @@ const useUserAdvice = () => {
 
     const authUserAdviceId = userAuthAdvice.value._id || allAdvice.value.filter(advice => advice.userId?._id === userId)[0]?._id
 
-  console.log(authUserAdviceId, "id del advice de usuario registrado")
 
   //si el usuario no tiene advice hago el set del dato del store solo con dato de usuario id, name e email
   if(authUserAdviceId === undefined){
@@ -42,11 +41,10 @@ const useUserAdvice = () => {
 }
 
 
-    console.log( "mira", userId, authUserAdviceId, allAdvice)
     //si el usuario tiene advice ejecuto la peticion para obtener advice y retorno el advice ,loading, error etc
 
     if(authUserAdviceId){
-           console.log("se esta ejecutando  vuequery")
+         
         const {isLoading, data, error, isError} = useQuery({
             queryKey: ['userAdvice', authUserAdviceId],
             queryFn: () => getAuthUserAdvice(authUserAdviceId),
@@ -58,7 +56,6 @@ const useUserAdvice = () => {
     
         watch(data, advice => {
             if(advice){
-                console.log("advice", advice)
                 store.setAdvice({
                     _id: advice._id,
                     advice: advice.advice,
@@ -89,7 +86,6 @@ const useUserAdvice = () => {
     
     }else{
 
-        console.log("se ejecuta esto")
         return {
             //si el usuario no tiene advice hecho retorno el advice vacío solo con datos del usuario name, email, id
             userAuthAdvice

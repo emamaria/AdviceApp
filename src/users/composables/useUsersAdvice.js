@@ -46,7 +46,7 @@ const useUsersAdvice = () => {
             
           })
 
-          console.log(adviceArray, "adviceAll")
+         
             store.setAllAdvice(adviceArray)
            
         }

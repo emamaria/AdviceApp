@@ -29,10 +29,10 @@ const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqRespon
         email && (newData.email = email)
         password && (newData.password = password)
 
-        console.log(newData, "data")
+    
            try {
      
-              console.log(options)
+             
               const {data} = await userApi.patch(`/users/${userData.value.uid}`, newData, options )
               
              
@@ -56,7 +56,7 @@ const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqRespon
      
            } catch (error) {
      
-            console.log(error, "mensaje de error")
+            console.log(error)
 
             isLoading.value = false
             isReqResponseFail.value = true
