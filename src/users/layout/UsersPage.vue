@@ -13,8 +13,8 @@ const router = useRouter()
 
 const cleanData = () => {
    logout()
-   window.location.reload()
    router.replace("/")
+   window.location.reload()
 }
 
 const respMenu = ref(false)
