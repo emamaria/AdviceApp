@@ -39,6 +39,10 @@ const updatingPersData = async() => {
         return
     }
 
+    if(form.value.password1.length > 0 && form.value.password2.length === 0 ){
+        return
+    }
+
     
    const result = await updateUser(form.value.name, form.value.email, form.value.password1)
    console.log(result, "resultado")
@@ -85,8 +89,8 @@ const updatingPersData = async() => {
 }
 
 small{
-    font-size: 1.2rem;
-   
+    font-size: 0.9rem;
+    text-align: center;
 }
 
 #submit{

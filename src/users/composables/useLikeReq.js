@@ -59,7 +59,6 @@ const options = {
          showReqMessage(adviceId)
          requestResponseMsg.value = error.response.data.msg || "Try again"
            
-              console.log(error)
               
               setTimeout(()=> {
                showReqMessage("")
@@ -104,7 +103,6 @@ const options = {
          
          showReqMessage(adviceId)
          requestResponseMsg.value = error.response.data.msg || "Try again"
-            console.log(error)
             
             setTimeout(()=> {
                showReqMessage("")

@@ -29,7 +29,7 @@ const useAdviceReq = (
     const adviceStore = useAdviceStore()
 
     const postAdvice = async(postData, postImage) => {
-        console.log(userData.uid, "uid usuario")
+        
         blockedCursor.value = true
            loading.value = true
            const newData = {
@@ -87,7 +87,7 @@ const useAdviceReq = (
      
            try {
      
-              console.log(options)
+              
               const {data} = await userApi.patch(`/advice/${userAuthAdvice.value._id}`, newData, options )
               
              
@@ -120,7 +120,7 @@ const useAdviceReq = (
 
                 
               }, 2000)
-               console.log(error)
+              
            }
         
       }
@@ -140,7 +140,7 @@ const useAdviceReq = (
         queryClient.invalidateQueries({queryKey: ['advice']})
         adviceStore.deleteAdvice(userAuthAdvice.value._id)
         adviceStore.resetUserAuthAdvice()
-        console.log("delete advice", (userAuthAdvice.value._id))
+       
         loading.value = false
      
         requestResponseOk.value = true
@@ -148,7 +148,7 @@ const useAdviceReq = (
         userAdviceText.value = userAuthAdvice.value.advice
         userImage.value = userAuthAdvice.value.img
          if(imgInput.value?.value?.length > 0){
-           console.log(imgInput.value.value)
+           
            imgInput.value.value = ""
          } 
         
@@ -164,7 +164,7 @@ const useAdviceReq = (
              return data
              
      } catch (error) {
-           console.log(error)
+           
            loading.value = false
               requestResponseFail.value = true
               requestFailMessage.value = error.response?.data?.errors?.advice?.msg || "Try again"

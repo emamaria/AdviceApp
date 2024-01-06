@@ -43,7 +43,7 @@ const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqRespon
 
             editUserData(data.user.name, data.user.email)
             localStorage.setItem('token', data.token)
-             console.log(data)
+        
             
              setTimeout(()=> {
               isReqResponseOk.value = false
@@ -55,8 +55,6 @@ const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqRespon
              return data
      
            } catch (error) {
-     
-            console.log(error)
 
             isLoading.value = false
             isReqResponseFail.value = true

@@ -47,7 +47,7 @@ const useUserAuth = () => {
         } catch (error) {
 
              let errorMessage = ref('')
-             console.log(error)
+        
 
              authStatus.value = "no-auth"
              userData.value = {}
@@ -95,7 +95,6 @@ const useUserAuth = () => {
             
         } catch (error) {
             let errorMessage = ref('')
-            console.log(error)
 
             authStatus.value = "no-auth"
             userData.value = {}
@@ -135,9 +134,7 @@ const useUserAuth = () => {
             
             
          } catch (error) {
-            console.log(error)
            
-                
                 localStorage.clear()
                 userData.value = {}
                 authStatus.value = "no-auth"
