@@ -191,7 +191,7 @@ button:hover{
    .user_advice_header img{
       width: 130px;
       height: 70px;
-      background-color: plum;
+      background-color: #6e5064;
       object-fit: cover;
    }
 
