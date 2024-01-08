@@ -52,7 +52,7 @@ const options = {
                showReqMessage("")
                requestResponseMsg.value = ""
                blockedCursor.value = false
-                }, 2000)
+                }, 1500)
        
 
         } catch (error) {
@@ -64,7 +64,7 @@ const options = {
                showReqMessage("")
                requestResponseMsg.value = ""
                blockedCursor.value = false
-            }, 3000)
+            }, 1500)
         }
          
      }
@@ -96,7 +96,7 @@ const options = {
             showReqMessage("")
             requestResponseMsg.value = ""
             blockedCursor.value = false
-              }, 2000)
+              }, 1500)
      
 
       } catch (error) {
@@ -109,7 +109,7 @@ const options = {
                requestResponseMsg.value = ""
                blockedCursor.value = false
             
-          }, 3000)
+          }, 1500)
       }
        
    }
