@@ -42,7 +42,7 @@ const options = {
             const {data} = await userApi.patch(`/like/${adviceId}`, userId, options)
               
             showReqMessage(adviceId)
-            requestResponseMsg.value = "Ok"
+            requestResponseMsg.value = "Added like"
   
             sumLike(adviceId)
             console.log(data)
@@ -87,7 +87,7 @@ const options = {
             
 
          showReqMessage(adviceId)
-         requestResponseMsg.value = "Ok"
+         requestResponseMsg.value = "Removed like"
 
           restLike(adviceId)
           console.log(data)
