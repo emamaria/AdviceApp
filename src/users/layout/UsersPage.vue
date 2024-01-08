@@ -16,9 +16,13 @@ const cleanData = () => {
 
    if(authStatus.value === "no-auth"){
         router.push({name: 'login'})
+        window.location.reload()
     }else{
       router.push({name: 'home'})
+      window.location.reload()
     }
+
+   
 
 }
 
