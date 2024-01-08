@@ -98,6 +98,19 @@ if(respMessage.value?.toLowerCase().includes("email")){
     form.value.email = ""
 }
 
+if(respMessage.value?.toLowerCase().includes("name")){
+    respMessage.value = ""
+    form.value.name = ""
+   
+}
+
+if(respMessage.value?.toLowerCase().includes("network")){
+    respMessage.value = ""
+    form.value.email = ""
+    form.value.name = ""
+    form.value.password1 = ""
+    form.value.password2 = ""
+}
 }, 3000)
 
 

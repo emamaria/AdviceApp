@@ -60,9 +60,27 @@ const useUserAuth = () => {
                 return errorMessage.value
              }
 
+             if(error?.response?.data?.errors?.email){
+                
+                errorMessage.value = error?.response?.data?.errors?.email?.msg
+                return errorMessage.value
+             }
+
+             if(error?.response?.data?.errors?.name){
+                
+                errorMessage.value = error?.response?.data?.errors?.name?.msg
+                return errorMessage.value
+             }
+
              if(error?.response?.data?.ok === false){
                
                 errorMessage.value = error?.response?.data?.msg
+                return errorMessage.value
+             }
+
+             if(error?.message){
+               
+                errorMessage.value = error?.message + " Try Again"
                 return errorMessage.value
              }
       
@@ -112,9 +130,23 @@ const useUserAuth = () => {
                return errorMessage.value
             }
 
+            if(error?.response?.data?.errors?.email){
+                
+                errorMessage.value = error?.response?.data?.errors?.email?.msg
+                return errorMessage.value
+             }
+
+            
+
             if(error?.response?.data?.ok === false){
                
                 errorMessage.value = error?.response?.data?.msg
+                return errorMessage.value
+             }
+
+             if(error?.message){
+               
+                errorMessage.value = error?.message + " Try Again"
                 return errorMessage.value
              }
              

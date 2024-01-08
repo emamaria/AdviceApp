@@ -58,7 +58,7 @@ const usePersonalReq = (isLoading,  isReqResponseOk,isReqResponseFail, reqRespon
 
             isLoading.value = false
             isReqResponseFail.value = true
-            reqResponseMessage.value = error.response?.data?.errors?.password?.msg || "Try again"
+            reqResponseMessage.value = error.response?.data?.errors?.password?.msg || error?.response?.data?.errors?.email?.msg ||  error?.response?.data?.errors?.name?.msg ||error?.response?.data?.msg || error?.message
                 setTimeout(()=> {
                   isReqResponseFail.value = false
                   reqResponseMessage.value = ""

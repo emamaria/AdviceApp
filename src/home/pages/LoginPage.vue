@@ -62,6 +62,13 @@ const submitLoginData = async() => {
        respMessage.value = ""
         form.value.email = ""
     }
+
+    if(respMessage.value?.toLowerCase().includes("network")){
+        respMessage.value = ""
+        form.value.password = ""
+        form.value.email = ""
+    
+    }
     
     }, 3000)
 
