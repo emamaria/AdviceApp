@@ -21,7 +21,8 @@ const form =  ref({
 
 let color = ref('#6e5064')
 
-let errorMessage = ref('')
+let respMessage = ref('')
+
 const setColor = (colour) => {
     color.value = colour
    
@@ -80,31 +81,32 @@ const submitRegisterData = async() => {
 
    
 
-    console.log(form.value)
 
-
-    errorMessage.value = await register(form.value.name, form.value.email.toLowerCase(), form.value.password1)
+    respMessage.value = await register(form.value.name, form.value.email.toLowerCase(), form.value.password1)
 
     
     setTimeout(()=>{
 
-if(errorMessage.value?.toLowerCase().includes("password")){
-    errorMessage.value = ""
+if(respMessage.value?.toLowerCase().includes("password")){
+    respMessage.value = ""
     form.value.password1 = ""
     form.value.password2 = ""
 }
 
-if(errorMessage.value?.toLowerCase().includes("email")){
-    errorMessage.value = ""
+if(respMessage.value?.toLowerCase().includes("email")){
+    respMessage.value = ""
     form.value.email = ""
 }
 
-}, 6000)
+}, 3000)
 
 
    
-    if(authStatus.value === 'ok-auth'){
+    if(respMessage.value === 'ok'){
         changePage()
+        setTimeout(()=>{
+          respMessage.value = ""
+        }, 2000)
     }
   
 } 
@@ -124,7 +126,7 @@ if(errorMessage.value?.toLowerCase().includes("email")){
        <small class="errorMessage" v-if="passwordInValid">{{passwordValidationMessage}}</small>
        <input type="password" v-model="form.password2" placeholder="confirm password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
-       <small v-if="errorMessage">{{errorMessage}}</small>
+       <small v-if="respMessage">{{respMessage}}</small>
        <small v-if="authStatus === 'loading'"><i class="fa-solid fa-spinner fa-spin"></i></small>
        <input id="button" @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Register">
        <RouterLink :to="{name: 'login'}">Already registered?</RouterLink>

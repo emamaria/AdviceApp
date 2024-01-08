@@ -42,7 +42,7 @@ const useUserAuth = () => {
          
              authStatus.value = "ok-auth"
 
-            
+            return 'ok'
             
         } catch (error) {
 
@@ -92,6 +92,8 @@ const useUserAuth = () => {
         localStorage.setItem('user', JSON.stringify({...data.userDB}))
 
         authStatus.value = "ok-auth"
+
+        return 'ok'
             
         } catch (error) {
             let errorMessage = ref('')

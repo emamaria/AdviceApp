@@ -12,7 +12,7 @@ const router = useRouter()
 const changePage = () => {
     router.push({path: '/users'})
 }
-let errorMessage = ref('')
+let respMessage = ref('')
 
 const form =  ref({
     email: "",
@@ -45,27 +45,33 @@ const submitLoginData = async() => {
     if(form.value.password.length === 0 || form.value.email.length === 0 ){
        return
     }
-    console.log(form.value)
+ 
 
-    errorMessage.value =  await login(form.value.email.toLowerCase(), form.value.password)
+    respMessage.value =  await login(form.value.email.toLowerCase(), form.value.password)
 
 
     setTimeout(()=>{
 
-    if(errorMessage.value?.toLowerCase().includes("password")){
-        errorMessage.value = ""
+    if(respMessage.value?.toLowerCase().includes("password")){
+        respMessage.value = ""
         form.value.password = ""
     }
 
-    if(errorMessage.value?.toLowerCase().includes("email")){
-        errorMessage.value = ""
+    if(respMessage.value?.toLowerCase().includes("email")){
+       respMessage.value = ""
         form.value.email = ""
     }
     
-    }, 6000)
+    }, 3000)
+
    
-    if(authStatus.value === 'ok-auth'){
+   
+    if(respMessage.value === 'ok'){
         changePage()
+        setTimeout(()=>{
+          respMessage.value = ""
+        }, 2000)
+      
     }
   
 
@@ -82,7 +88,7 @@ const submitLoginData = async() => {
        <input type="email" v-model="form.email" placeholder="email">  
        <input type="password" v-model="form.password" placeholder="password">
        <small v-if="fieldsNotEmpty">{{fieldsNotEmptyMessage}}</small>
-       <small v-if="errorMessage">{{errorMessage}}</small>
+       <small v-if="respMessage">{{respMessage}}</small>
        <small v-if="authStatus === 'loading'"><i class="fa-solid fa-spinner fa-spin"></i></small>
        <input id="button"  @mouseup="setColor('#6e5064')"  @mousedown="setColor('white')" :style={background:color} type="submit" value="Login">
        <RouterLink :to="{name: 'register'}">Not registered yet?</RouterLink>
