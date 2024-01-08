@@ -22,12 +22,12 @@ const useUserAuth = () => {
         
         try {
 
-            console.log("name", "email", "password", name, email, password)
+           
 
             authStatus.value = "loading"
             const {data} = await userApi.post('/users', {name, email, password})
 
-            console.log("data", "login")
+            
             userData.value = {
                 createdAt: data.user.createdAt,
                 email: data.user.email,
@@ -77,10 +77,10 @@ const useUserAuth = () => {
 
         authStatus.value = "loading"
 
-        console.log("name", "email", email, password)
+      
         const {data} = await userApi.post('/auth/login', {email, password})
 
-         console.log("register data", data)
+       
         userData.value = {
             createdAt: data.userDB.createdAt,
             email: data.userDB.email,
