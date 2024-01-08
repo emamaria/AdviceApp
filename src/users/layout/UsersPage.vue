@@ -38,7 +38,7 @@ const clickHamburguer = () => {
 <template>
   <div class="container">
    <header>  
-      <h3>{{ userData.name[0].toUpperCase() + userData.name.slice(1) }}</h3>
+      <h3>{{ userData?.name[0].toUpperCase() + userData.name.slice(1) }}</h3>
       <nav :class="respNavStyle">
       <RouterLink :to="{name: 'users-advice'}">all advice</RouterLink>
       <RouterLink :to="{name: 'user', params: {id:userData.uid}}">my advice</RouterLink>
