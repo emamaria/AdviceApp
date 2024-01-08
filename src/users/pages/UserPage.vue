@@ -158,6 +158,7 @@ h2{
    font-size: 3rem;
    top: 50%;
    left: 50%;
+   transform: translate(-50%, -50%); 
    color: #d7cebb;
 }
 
