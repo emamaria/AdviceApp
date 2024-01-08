@@ -84,7 +84,7 @@ const submitRegisterData = async() => {
 
     respMessage.value = await register(form.value.name, form.value.email.toLowerCase(), form.value.password1)
 
-    
+    console.log(respMessage.value, "register resp")
     setTimeout(()=>{
 
 if(respMessage.value?.toLowerCase().includes("password")){

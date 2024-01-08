@@ -49,6 +49,7 @@ const submitLoginData = async() => {
 
     respMessage.value =  await login(form.value.email.toLowerCase(), form.value.password)
 
+   console.log(respMessage.value, "login resp")
 
     setTimeout(()=>{
 
